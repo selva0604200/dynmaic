@@ -38,7 +38,7 @@
                         radial-gradient(ellipse at 12% 70%, rgba(0,75,130,.22), transparent 42%), #000;
         }
 
-        /* Canvas & Background Layers */
+        /* Canvas & Background */
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
@@ -52,11 +52,11 @@
         }
         .ui-layer { position: relative; z-index: 10; }
 
-        /* Floating Preview Tooltip Card */
+        /* Floating Cursor Preview Tooltip Card */
         #hover-preview-modal {
             position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
             width: 320px; padding: 1.2rem; border-radius: 16px;
-            background: rgba(10, 12, 18, 0.92); border: 1px solid rgba(41, 151, 255, 0.4);
+            background: rgba(10, 12, 18, 0.94); border: 1px solid rgba(41, 151, 255, 0.4);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(41, 151, 255, 0.25);
             backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
             opacity: 0; transform: scale(0.92) translateY(10px);
@@ -73,19 +73,23 @@
         .preview-body { font-size: 0.85rem; color: var(--text-sub); line-height: 1.5; }
         .preview-footer { margin-top: 0.8rem; padding-top: 0.6rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; color: var(--accent-green); font-family: var(--font-mono); }
 
-        /* Navigation Header & Mega Menu Hover Bridge */
+        /* Navigation Header Bar */
         nav {
-            position: fixed; top: 0; width: 100%; height: 52px; padding: 0 clamp(1.25rem, 5vw, 5rem);
-            display: flex; justify-content: space-between; align-items: center; background: rgba(0, 0, 0, 0.85) !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important; z-index: 100;
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            position: fixed; top: 0; left: 0; width: 100vw; height: 56px; padding: 0 clamp(1rem, 4vw, 4rem);
+            display: flex; justify-content: space-between; align-items: center; background: rgba(8, 8, 12, 0.92) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important; z-index: 1000;
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
         }
-        .nav-left { display: flex; align-items: center; gap: 3rem; height: 100%; }
-        .logo { font-weight: 600; font-size: 0.95rem; color: #f5f5f7; text-decoration: none; letter-spacing: -0.02em; }
-        .nav-links { display: flex; gap: 1.8rem; list-style: none; height: 100%; align-items: center; }
-        .nav-links li { position: static; height: 100%; display: flex; align-items: center; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.82rem; font-weight: 400; transition: color 0.25s ease; height: 100%; display: flex; align-items: center; }
-        .nav-links a:hover, .nav-links a.active { color: #ffffff !important; }
+        .nav-left { display: flex; align-items: center; gap: 2.5rem; height: 100%; }
+        .logo { font-weight: 700; font-size: 0.95rem; color: #ffffff; text-decoration: none; letter-spacing: -0.02em; }
+        
+        .nav-links { display: flex; gap: 1.2rem; list-style: none; height: 100%; margin: 0; padding: 0; }
+        .nav-links > li { position: static; height: 100%; display: flex; align-items: center; }
+        .nav-links > li > a {
+            color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 500;
+            height: 100%; display: flex; align-items: center; padding: 0 0.6rem; transition: color 0.2s ease;
+        }
+        .nav-links > li:hover > a, .nav-links > li.active-menu > a { color: #ffffff !important; }
 
         .nav-right .btn-primary {
             display: inline-flex; align-items: center; justify-content: center;
@@ -95,21 +99,28 @@
         }
         .nav-right .btn-primary:hover { transform: translateY(-2px); background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
 
-        /* Full Mega Menu Dropdown Panels for ALL Nav Items */
+        /* Mega Menu Dropdown Panels for Nav Items */
         .mega-menu {
-            position: fixed; top: 52px; left: 0; width: 100%; max-height: calc(100dvh - 52px);
-            overflow-y: auto; padding: 2.5rem clamp(2rem, 7vw, 7rem) 3rem;
-            display: grid; grid-template-columns: 1fr 1fr 1fr 1.2fr; gap: clamp(2rem, 4vw, 4rem);
-            background: rgba(12, 12, 15, 0.96); border-bottom: 1px solid rgba(255,255,255,.14);
-            backdrop-filter: blur(28px) saturate(180%); -webkit-backdrop-filter: blur(28px) saturate(180%);
+            position: fixed; top: 56px; left: 0; width: 100vw; max-height: calc(100vh - 56px);
+            overflow-y: auto; padding: 2.5rem clamp(2rem, 6vw, 6rem) 3rem;
+            display: grid; grid-template-columns: 1fr 1fr 1fr 1.2fr; gap: clamp(2rem, 3.5vw, 4rem);
+            background: rgba(10, 10, 14, 0.97) !important; border-bottom: 1px solid rgba(255,255,255,.16) !important;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%);
             opacity: 0; visibility: hidden; pointer-events: none;
-            transform: translateY(-8px); transition: opacity .22s ease, transform .22s ease, visibility 0s linear .22s; z-index: 99;
+            transform: translateY(-10px); transition: opacity .2s ease, transform .2s ease, visibility 0s linear .2s; z-index: 999;
         }
-        .nav-links li.has-mega-menu:hover > .mega-menu, 
-        .nav-links li.has-mega-menu:focus-within > .mega-menu,
-        .nav-links li.has-mega-menu.menu-open > .mega-menu {
-            opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); transition-delay: 0s;
+
+        /* Hover & Active States */
+        .nav-links > li:hover .mega-menu, 
+        .nav-links > li.active-menu .mega-menu {
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+            transform: translateY(0) !important;
+            transition-delay: 0s !important;
         }
+
         .mega-column-title { color: var(--text-muted); font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 1.2rem; }
         .mega-links { display: grid; gap: 0.8rem; }
         .mega-links a { color: #f5f5f7; text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color .2s ease, transform .2s ease; }
@@ -120,7 +131,7 @@
         .mega-button { display: inline-flex; align-items: center; gap: .5rem; padding: .5rem 1.1rem; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; color: #fff; text-decoration: none; font-size: .82rem; transition: all .25s ease; }
         .mega-button:hover { background: #fff; color: #000; }
 
-        /* Hero Section */
+        /* Hero */
         .apple-hero {
             min-height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; padding: 8rem 1.5rem 4rem; position: relative; z-index: 5;
@@ -137,7 +148,7 @@
         .apple-btn-primary:hover { background: #f5f5f7; transform: scale(1.02); }
         .apple-btn-link { color: var(--accent); font-size: 0.95rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem; }
 
-        /* Layout & Glass Cards */
+        /* Cards Layout */
         .content-wrapper { position: relative; z-index: 10; padding-bottom: 6rem; }
         
         section, .cert-card, .terminal-box {
@@ -253,7 +264,7 @@
     <div class="noise-overlay"></div>
     <canvas aria-hidden="true" id="galaxy-canvas"></canvas>
 
-    <!-- Floating Hover Preview Card -->
+    <!-- Floating Hover Preview Tooltip Card -->
     <div id="hover-preview-modal">
         <span class="preview-tag" id="prev-tag">INFRASTRUCTURE PREVIEW</span>
         <div class="preview-title" id="prev-title">PySpark Compute Engine</div>
@@ -262,7 +273,7 @@
     </div>
 
     <div class="ui-layer" id="ui-layer">
-        <!-- Header Nav with Mega Menu Dropdowns for EVERY Item -->
+        <!-- Header Nav with Interactive Mega Menu Dropdowns for ALL Items -->
         <nav aria-label="Main Navigation">
             <div class="nav-left">
                 <a class="logo" href="#main">Selvendiran S</a>
@@ -718,7 +729,7 @@
     document.addEventListener("DOMContentLoaded", () => {
         try { fetchGitHubProjects(); } catch(e){}
         try { initClock(); } catch(e){}
-        try { initMegaMenuLogic(); } catch(e){}
+        try { initMegaMenuHoverController(); } catch(e){}
         try { initSpotlightPhysics(); } catch(e){}
         try { initHoverPreviewModal(); } catch(e){}
         try { initTerminalSimulator(); } catch(e){}
@@ -766,7 +777,25 @@
         } catch (e) {}
     }
 
-    /* Interactive Hover Preview Card Controller */
+    /* Robust Mega Menu Hover Controller */
+    function initMegaMenuHoverController() {
+        const menuItems = document.querySelectorAll('.nav-links > li.has-mega-menu');
+        menuItems.forEach(item => {
+            let timer;
+            item.addEventListener('mouseenter', () => {
+                clearTimeout(timer);
+                menuItems.forEach(el => el.classList.remove('active-menu'));
+                item.classList.add('active-menu');
+            });
+            item.addEventListener('mouseleave', () => {
+                timer = setTimeout(() => {
+                    item.classList.remove('active-menu');
+                }, 120);
+            });
+        });
+    }
+
+    /* Interactive Tooltip Modal */
     function initHoverPreviewModal() {
         const modal = document.getElementById('hover-preview-modal');
         if (!modal) return;
@@ -822,27 +851,6 @@
         };
         update();
         setInterval(update, 1000);
-    }
-
-    function initMegaMenuLogic() {
-        const items = [...document.querySelectorAll('.nav-links li.has-mega-menu')];
-        const closeAll = except => items.forEach(item => { if (item !== except) item.classList.remove('menu-open'); });
-        items.forEach(item => {
-            const trigger = item.querySelector(':scope > a');
-            const menu = item.querySelector(':scope > .mega-menu');
-            if (!trigger || !menu) return;
-            trigger.addEventListener('click', e => {
-                if (window.matchMedia('(max-width: 768px)').matches) {
-                    e.preventDefault();
-                    const open = item.classList.contains('menu-open');
-                    closeAll();
-                    if (!open) item.classList.add('menu-open');
-                }
-            });
-            menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => closeAll()));
-        });
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
-        document.addEventListener('click', e => { if (!e.target.closest('.nav-links li.has-mega-menu')) closeAll(); });
     }
 
     function initSpotlightPhysics() {
