@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta content="Selvendiran S - Lead Data Engineer Portfolio." name="description"/>
-    <title>Selvendiran S | Data Engineer</title>
+    <title>Selvendiran S | Data Engineer Portfolio</title>
     <meta name="theme-color" content="#000000">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23000'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Arial' font-size='34' font-weight='700' fill='%232997ff'%3ES%3C/text%3E%3C/svg%3E">
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -18,6 +18,7 @@
             --text-muted: #a1a1a6;
             --text-sub: #d2d2d7;
             --accent: #2997ff;
+            --accent-cyan: #64d2ff;
             --accent-green: #30d158;
             --glass-border: rgba(255, 255, 255, 0.14);
             --glass-bg: rgba(18, 18, 20, 0.65);
@@ -38,7 +39,7 @@
                         radial-gradient(ellipse at 12% 70%, rgba(0,75,130,.22), transparent 42%), #000;
         }
 
-        /* Background Layers */
+        /* Canvas & Background Layers */
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
@@ -51,6 +52,27 @@
                         linear-gradient(180deg,#02040a 0%,#000 55%,#010207 100%);
         }
         .ui-layer { position: relative; z-index: 10; }
+
+        /* Floating Cursor Hover Preview Modal */
+        #hover-preview-modal {
+            position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
+            width: 320px; padding: 1.2rem; border-radius: 16px;
+            background: rgba(10, 12, 18, 0.92); border: 1px solid rgba(41, 151, 255, 0.4);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(41, 151, 255, 0.25);
+            backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
+            opacity: 0; transform: scale(0.92) translateY(10px);
+            transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #hover-preview-modal.visible {
+            opacity: 1; transform: scale(1) translateY(0);
+        }
+        .preview-tag {
+            display: inline-block; font-size: 0.72rem; font-weight: 600; color: var(--accent-cyan);
+            text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem;
+        }
+        .preview-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
+        .preview-body { font-size: 0.85rem; color: var(--text-sub); line-height: 1.5; }
+        .preview-footer { margin-top: 0.8rem; padding-top: 0.6rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; color: var(--accent-green); font-family: var(--font-mono); }
 
         /* Navigation Header & Mega Menu */
         nav {
@@ -99,7 +121,7 @@
         .mega-button { display: inline-flex; align-items: center; gap: .5rem; padding: .5rem 1.1rem; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; color: #fff; text-decoration: none; font-size: .82rem; transition: all .25s ease; }
         .mega-button:hover { background: #fff; color: #000; }
 
-        /* Hero */
+        /* Hero Section */
         .apple-hero {
             min-height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; padding: 8rem 1.5rem 4rem; position: relative; z-index: 5;
@@ -116,7 +138,7 @@
         .apple-btn-primary:hover { background: #f5f5f7; transform: scale(1.02); }
         .apple-btn-link { color: var(--accent); font-size: 0.95rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem; }
 
-        /* Content Layout & Glass Cards */
+        /* Layout & Glass Cards */
         .content-wrapper { position: relative; z-index: 10; padding-bottom: 6rem; }
         
         section, .cert-card, .terminal-box {
@@ -136,7 +158,6 @@
         .section-header { margin-bottom: 2.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 1rem; }
         .section-header h2 { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; }
 
-        /* Status Dot */
         .status-dot {
             display: inline-block; width: 8px; height: 8px; background-color: var(--accent-green);
             border-radius: 50%; margin-right: 8px; box-shadow: 0 0 10px var(--accent-green);
@@ -156,7 +177,7 @@
         .experience-list { padding-left: 1.2rem; margin-top: 0.5rem; }
         .experience-list li { margin: 0.5rem 0; }
 
-        /* Terminal Console */
+        /* Console Terminal Box */
         .terminal-box {
             background: rgba(5, 5, 8, 0.9) !important; border: 1px solid rgba(255, 255, 255, 0.12);
             padding: 1.2rem; border-radius: 14px; font-family: var(--font-mono); font-size: 0.85rem;
@@ -168,7 +189,7 @@
         .terminal-cmd { color: #64d2ff; }
         .terminal-output { color: var(--accent-green); margin-top: 0.4rem; white-space: pre-wrap; line-height: 1.5; }
 
-        /* Tech Filters & Badges */
+        /* Skill Filters & Badges */
         .filter-container { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.8rem; }
         .filter-btn {
             background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); color: var(--text-muted);
@@ -179,23 +200,23 @@
         .tech-list { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
         .tech-tag {
             background: rgba(255,255,255,0.08); border: 1px solid rgba(255, 255, 255, 0.14); color: var(--text-main);
-            padding: 0.45rem 1.1rem; border-radius: 980px; font-size: 0.8rem; font-weight: 400;
+            padding: 0.45rem 1.1rem; border-radius: 980px; font-size: 0.8rem; font-weight: 400; cursor: pointer;
             transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
         }
         .tech-tag:hover {
-            border-color: var(--accent) !important; box-shadow: 0 0 16px rgba(41, 151, 255, 0.35);
-            transform: translateY(-2px); background: rgba(41, 151, 255, 0.2) !important;
+            border-color: var(--accent) !important; box-shadow: 0 0 16px rgba(41, 151, 255, 0.4);
+            transform: translateY(-2px); background: rgba(41, 151, 255, 0.25) !important;
         }
 
         /* Grid Layouts */
         .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; }
         .cert-card {
-            padding: 1.6rem; border-radius: 16px; position: relative; overflow: hidden;
+            padding: 1.6rem; border-radius: 16px; position: relative; overflow: hidden; cursor: pointer;
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .cert-card:hover {
-            border-color: rgba(41, 151, 255, 0.4) !important;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(41, 151, 255, 0.2);
+            border-color: rgba(41, 151, 255, 0.5) !important;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(41, 151, 255, 0.25);
             transform: translateY(-3px) !important;
         }
         .cert-icon { font-size: 1.2rem; margin-bottom: 0.8rem; color: var(--accent); font-weight: 700; }
@@ -224,6 +245,7 @@
             .experience-item { grid-template-columns: 1fr; gap: 1rem; }
             .nav-links { gap: 1rem; overflow-x: auto; }
             .apple-hero-title { font-size: clamp(2.5rem, 9vw, 4rem) !important; }
+            #hover-preview-modal { display: none !important; }
         }
     </style>
 </head>
@@ -231,6 +253,14 @@
     <div class="base-black"></div>
     <div class="noise-overlay"></div>
     <canvas aria-hidden="true" id="galaxy-canvas"></canvas>
+
+    <!-- Dynamic Hover Preview Tooltip Card -->
+    <div id="hover-preview-modal">
+        <span class="preview-tag" id="prev-tag">INFRASTRUCTURE PREVIEW</span>
+        <div class="preview-title" id="prev-title">PySpark Compute Engine</div>
+        <div class="preview-body" id="prev-body">Distributed cluster data processing framework for terabyte-scale ETL transformation jobs.</div>
+        <div class="preview-footer" id="prev-footer">Status: Operational | Latency: 0.24ms</div>
+    </div>
 
     <div class="ui-layer" id="ui-layer">
         <!-- Header Nav with Mega Menu Dropdowns -->
@@ -352,8 +382,8 @@
                             </div>
 
                             <div class="tech-list" style="margin-top: 1.5rem;">
-                                <span class="tech-tag">Location: Chennai, Tamil Nadu, India</span>
-                                <span class="tech-tag">Local Time: <strong id="local-clock"><span class="status-dot"></span>Connecting...</strong></span>
+                                <span class="tech-tag" data-preview-tag="LOCATION NODE" data-preview-title="Chennai, TN, India" data-preview-body="Primary timezone IST (UTC+5:30). Open for distributed hybrid and global cloud roles." data-preview-footer="Status: Active Search Mode">Location: Chennai, Tamil Nadu, India</span>
+                                <span class="tech-tag" id="clock-tag"><strong id="local-clock"><span class="status-dot"></span>Connecting...</strong></span>
                             </div>
                         </div>
                     </div>
@@ -378,12 +408,12 @@
                                     <li>Building stream and batch data integration pipelines using AWS Kinesis and PySpark.</li>
                                 </ul>
                                 <div class="tech-list" style="margin-top: 1rem;">
-                                    <span class="tech-tag">Python</span>
-                                    <span class="tech-tag">SQL</span>
-                                    <span class="tech-tag">AWS Glue</span>
-                                    <span class="tech-tag">Amazon S3</span>
-                                    <span class="tech-tag">Redshift</span>
-                                    <span class="tech-tag">Athena</span>
+                                    <span class="tech-tag" data-preview-tag="CORE SKILL" data-preview-title="Python Pipeline Scripting" data-preview-body="Writing automated Boto3 orchestration scripts, custom data transformation modules, and PySpark UDFs." data-preview-footer="Usage: Enterprise ETL">Python</span>
+                                    <span class="tech-tag" data-preview-tag="CORE SKILL" data-preview-title="SQL Query Optimization" data-preview-body="Authoring complex analytical CTEs, window functions, and indexing strategies for AWS Redshift & Athena." data-preview-footer="Usage: Data Warehousing">SQL</span>
+                                    <span class="tech-tag" data-preview-tag="AWS CLOUD" data-preview-title="AWS Glue Serverless ETL" data-preview-body="Serverless Spark job execution, catalog triggers, and dynamic schema crawlers." data-preview-footer="Usage: Batch Processing">AWS Glue</span>
+                                    <span class="tech-tag" data-preview-tag="AWS CLOUD" data-preview-title="Amazon S3 Lake Storage" data-preview-body="Multi-tier object storage configured with columnar Parquet and Delta Lake formatting." data-preview-footer="Usage: Data Lakehouse">Amazon S3</span>
+                                    <span class="tech-tag" data-preview-tag="WAREHOUSE" data-preview-title="Amazon Redshift Cluster" data-preview-body="Petabyte-scale analytical data warehouse with columnar storage and distribution keys." data-preview-footer="Usage: OLAP Analytics">Redshift</span>
+                                    <span class="tech-tag" data-preview-tag="SERVERLESS QUERY" data-preview-title="Amazon Athena Analytics" data-preview-body="Interactive SQL querying directly over S3 data lake files using Presto/Trino engines." data-preview-footer="Usage: Ad-hoc Queries">Athena</span>
                                 </div>
                             </div>
                         </div>
@@ -401,10 +431,8 @@
                                     <li>Executed SQL queries for database analysis, report generation, and data validation.</li>
                                 </ul>
                                 <div class="tech-list" style="margin-top: 1rem;">
-                                    <span class="tech-tag">SQL</span>
-                                    <span class="tech-tag">Python</span>
-                                    <span class="tech-tag">Data Analysis</span>
-                                    <span class="tech-tag">Problem Solving</span>
+                                    <span class="tech-tag" data-preview-tag="ANALYTICS" data-preview-title="SQL Data Validation" data-preview-body="Writing automated sanity-check queries to audit pipeline data integrity." data-preview-footer="Usage: Data Quality">SQL</span>
+                                    <span class="tech-tag" data-preview-tag="LANGUAGES" data-preview-title="Python Automation" data-preview-body="Building utility scripts to automate repetitive CSV/JSON ingestion tasks." data-preview-footer="Usage: Scripting">Python</span>
                                 </div>
                             </div>
                         </div>
@@ -421,11 +449,6 @@
                                     <li>Managed financial claim investigations and resolved denied/pending insurance claims.</li>
                                     <li>Analyzed claim datasets to optimize reimbursement turnaround time.</li>
                                 </ul>
-                                <div class="tech-list" style="margin-top: 1rem;">
-                                    <span class="tech-tag">Analytical Skills</span>
-                                    <span class="tech-tag">Communication</span>
-                                    <span class="tech-tag">Time Management</span>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -442,16 +465,17 @@
                         <button class="filter-btn" onclick="filterSkillCategory('Languages', this)">Languages</button>
                     </div>
                     <div id="dynamic-skills" class="tech-list">
-                        <span class="tech-tag">Apache Spark (PySpark)</span>
-                        <span class="tech-tag">Spark SQL</span>
-                        <span class="tech-tag">Apache Airflow</span>
-                        <span class="tech-tag">Apache Kafka</span>
-                        <span class="tech-tag">AWS (S3, Glue, Redshift, Athena)</span>
-                        <span class="tech-tag">Azure Data Factory</span>
-                        <span class="tech-tag">Snowflake Warehouse</span>
-                        <span class="tech-tag">PostgreSQL</span>
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">SQL</span>
+                        <!-- Default Badges with Hover Preview Metadata -->
+                        <span class="tech-tag" data-preview-tag="DISTRIBUTED COMPUTE" data-preview-title="Apache Spark (PySpark)" data-preview-body="Distributed data processing engine handling terabyte-scale transforms with memory-optimized partition tuning." data-preview-footer="Experience: Advanced | Execution: EMR/Glue">Apache Spark (PySpark)</span>
+                        <span class="tech-tag" data-preview-tag="QUERY ENGINE" data-preview-title="Spark SQL" data-preview-body="High-performance ANSI SQL querying engine executing structured dataset operations across distributed nodes." data-preview-footer="Experience: Advanced | Optimization: Catalyst">Spark SQL</span>
+                        <span class="tech-tag" data-preview-tag="ORCHESTRATION" data-preview-title="Apache Airflow" data-preview-body="DAG-based workflow orchestration platform managing task dependencies, automated retries, and monitoring." data-preview-footer="Experience: Intermediate | Architecture: Python DAGs">Apache Airflow</span>
+                        <span class="tech-tag" data-preview-tag="STREAMING" data-preview-title="Apache Kafka" data-preview-body="Distributed pub/sub event streaming platform handling real-time data ingestion pipelines with low latency." data-preview-footer="Experience: Intermediate | Architecture: Event-Driven">Apache Kafka</span>
+                        <span class="tech-tag" data-preview-tag="CLOUD ECOSYSTEM" data-preview-title="AWS (S3, Glue, Redshift, Athena)" data-preview-body="Full-stack enterprise AWS cloud data suite covering storage, serverless ETL, OLAP warehousing, and ad-hoc queries." data-preview-footer="Experience: Advanced | Ecosystem: AWS Cloud">AWS (S3, Glue, Redshift, Athena)</span>
+                        <span class="tech-tag" data-preview-tag="CLOUD PIPELINES" data-preview-title="Azure Data Factory" data-preview-body="Hybrid cloud data integration service orchestrating ETL/ELT data movement pipelines across enterprise sources." data-preview-footer="Experience: Intermediate | Ecosystem: Azure">Azure Data Factory</span>
+                        <span class="tech-tag" data-preview-tag="CLOUD WAREHOUSE" data-preview-title="Snowflake Warehouse" data-preview-body="Separated compute and storage cloud warehouse featuring micro-partitioning, zero-copy cloning, and time travel." data-preview-footer="Experience: Intermediate | Architecture: Multi-Cluster">Snowflake Warehouse</span>
+                        <span class="tech-tag" data-preview-tag="DATABASE" data-preview-title="PostgreSQL" data-preview-body="ACID-compliant relational database engine utilized for transactional logging, metadata catalogs, and staging tables." data-preview-footer="Experience: Advanced | Architecture: RDBMS">PostgreSQL</span>
+                        <span class="tech-tag" data-preview-tag="PROGRAMMING" data-preview-title="Python" data-preview-body="Primary engineering language for Spark scripts, Boto3 AWS API automation, and data validation routines." data-preview-footer="Experience: Advanced | Vers: 3.10+">Python</span>
+                        <span class="tech-tag" data-preview-tag="QUERY LANGUAGE" data-preview-title="SQL" data-preview-body="Core data manipulation language used for complex joins, analytical window functions, and database administration." data-preview-footer="Experience: Advanced | Dialects: PostgreSQL, Redshift, Spark">SQL</span>
                     </div>
                 </section>
 
@@ -459,14 +483,14 @@
                 <section id="github">
                     <div class="section-header"><h2>Live Repositories (GitHub API)</h2></div>
                     <div id="dynamic-github-repos" class="cert-grid">
-                        <div class="cert-card">
+                        <div class="cert-card" data-preview-tag="LIVE REPOSITORY" data-preview-title="PySpark Pipeline Repository" data-preview-body="Production ETL code implementing S3 partition strategies and automated data validation scripts." data-preview-footer="Click card to visit GitHub Repo ↗">
                             <div class="cert-icon">⚡</div>
                             <h3>Enterprise Data Pipeline</h3>
                             <p>Scalable PySpark ETL workflow targeting AWS Glue and S3 Delta Lake.</p>
                             <p style="font-size:0.78rem; color: var(--accent); margin-bottom: 0.8rem;">★ Live | 𝌀 Python</p>
                             <a class="cert-link" href="https://github.com/selva0604200" target="_blank" rel="noopener noreferrer">View Repository ↗</a>
                         </div>
-                        <div class="cert-card">
+                        <div class="cert-card" data-preview-tag="LIVE REPOSITORY" data-preview-title="Cloud Analytics Repository" data-preview-body="SQL analytical queries, window functions, and schema definitions for Redshift and Snowflake." data-preview-footer="Click card to visit GitHub Repo ↗">
                             <div class="cert-icon">⚡</div>
                             <h3>Cloud Analytics Warehouse</h3>
                             <p>SQL benchmarks and data modeling for Snowflake & Amazon Redshift.</p>
@@ -480,19 +504,19 @@
                 <section id="certs">
                     <div class="section-header"><h2>04 / Certifications & Recognitions</h2></div>
                     <div id="dynamic-certs" class="cert-grid">
-                        <div class="cert-card">
+                        <div class="cert-card" data-preview-tag="CREDENTIAL" data-preview-title="Claude Partner Badge" data-preview-body="Verified certification badge issued by Anthropic for Claude Code & AI development frameworks." data-preview-footer="Issuer: Anthropic | Date: Sep 2026">
                             <div class="cert-icon">AI</div>
                             <h3>Claude Partner Badge - Claude Code</h3>
                             <p>Anthropic · Issued Sep 2026</p>
                             <a class="cert-link" href="https://www.credly.com/badges/f3dc86b3-9f07-497d-8925-32d9a602271d/linked_in_profile" target="_blank" rel="noopener noreferrer">Show credential ↗</a>
                         </div>
-                        <div class="cert-card">
+                        <div class="cert-card" data-preview-tag="CREDENTIAL" data-preview-title="AI Fluency Framework" data-preview-body="Official certificate of completion for AI fluency and prompt engineering foundations." data-preview-footer="Issuer: Anthropic | Date: Sep 2026">
                             <div class="cert-icon">AI</div>
                             <h3>AI Fluency Framework & Foundations</h3>
                             <p>Anthropic · Issued Sep 2026</p>
                             <a class="cert-link" href="https://verify.skilljar.com/c/52ratjsamy5w" target="_blank" rel="noopener noreferrer">Show credential ↗</a>
                         </div>
-                        <div class="cert-card">
+                        <div class="cert-card" data-preview-tag="CREDENTIAL" data-preview-title="Context Engineering" data-preview-body="Cognizant internal engineering recognition badge for advanced LLM context optimization." data-preview-footer="Issuer: Cognizant | Date: Apr 2026">
                             <div class="cert-icon">◆</div>
                             <h3>Context Engineering Foundation</h3>
                             <p>Cognizant · Issued Apr 2026</p>
@@ -546,16 +570,16 @@
             linkedin: "https://www.linkedin.com/in/selvendiran-s-6a91351a8/"
         },
         skills: [
-            { category: "Compute", name: "Apache Spark (PySpark)" },
-            { category: "Compute", name: "Spark SQL" },
-            { category: "Orchestration", name: "Apache Airflow" },
-            { category: "Orchestration", name: "Apache Kafka" },
-            { category: "Cloud & Storage", name: "AWS (S3, Glue, Redshift, Athena)" },
-            { category: "Cloud & Storage", name: "Azure Data Factory" },
-            { category: "Cloud & Storage", name: "Snowflake Warehouse" },
-            { category: "Cloud & Storage", name: "PostgreSQL" },
-            { category: "Languages", name: "Python" },
-            { category: "Languages", name: "SQL" }
+            { category: "Compute", name: "Apache Spark (PySpark)", tag: "DISTRIBUTED COMPUTE", title: "Apache Spark (PySpark)", body: "Distributed data processing engine handling terabyte-scale transforms with memory-optimized partition tuning.", footer: "Experience: Advanced | Execution: EMR/Glue" },
+            { category: "Compute", name: "Spark SQL", tag: "QUERY ENGINE", title: "Spark SQL", body: "High-performance ANSI SQL querying engine executing structured dataset operations across distributed nodes.", footer: "Experience: Advanced | Optimization: Catalyst" },
+            { category: "Orchestration", name: "Apache Airflow", tag: "ORCHESTRATION", title: "Apache Airflow", body: "DAG-based workflow orchestration platform managing task dependencies, automated retries, and monitoring.", footer: "Experience: Intermediate | Architecture: Python DAGs" },
+            { category: "Orchestration", name: "Apache Kafka", tag: "STREAMING", title: "Apache Kafka", body: "Distributed pub/sub event streaming platform handling real-time data ingestion pipelines with low latency.", footer: "Experience: Intermediate | Architecture: Event-Driven" },
+            { category: "Cloud & Storage", name: "AWS (S3, Glue, Redshift, Athena)", tag: "CLOUD ECOSYSTEM", title: "AWS Cloud Suite", body: "Full-stack enterprise AWS cloud data suite covering storage, serverless ETL, OLAP warehousing, and ad-hoc queries.", footer: "Experience: Advanced | Ecosystem: AWS Cloud" },
+            { category: "Cloud & Storage", name: "Azure Data Factory", tag: "CLOUD PIPELINES", title: "Azure Data Factory", body: "Hybrid cloud data integration service orchestrating ETL/ELT data movement pipelines across enterprise sources.", footer: "Experience: Intermediate | Ecosystem: Azure" },
+            { category: "Cloud & Storage", name: "Snowflake Warehouse", tag: "CLOUD WAREHOUSE", title: "Snowflake Warehouse", body: "Separated compute and storage cloud warehouse featuring micro-partitioning, zero-copy cloning, and time travel.", footer: "Experience: Intermediate | Architecture: Multi-Cluster" },
+            { category: "Cloud & Storage", name: "PostgreSQL", tag: "DATABASE", title: "PostgreSQL", body: "ACID-compliant relational database engine utilized for transactional logging, metadata catalogs, and staging tables.", footer: "Experience: Advanced | Architecture: RDBMS" },
+            { category: "Languages", name: "Python", tag: "PROGRAMMING", title: "Python", body: "Primary engineering language for Spark scripts, Boto3 AWS API automation, and data validation routines.", footer: "Experience: Advanced | Vers: 3.10+" },
+            { category: "Languages", name: "SQL", tag: "QUERY LANGUAGE", title: "SQL", body: "Core data manipulation language used for complex joins, analytical window functions, and database administration.", footer: "Experience: Advanced | Dialects: PostgreSQL, Redshift, Spark" }
         ]
     };
 
@@ -564,6 +588,7 @@
         try { initClock(); } catch(e){}
         try { initMegaMenuLogic(); } catch(e){}
         try { initSpotlightPhysics(); } catch(e){}
+        try { initHoverPreviewModal(); } catch(e){}
         try { initTerminalSimulator(); } catch(e){}
         try { initCanvasAnimation(); } catch(e){}
     });
@@ -579,7 +604,11 @@
             ? portfolioData.skills 
             : portfolioData.skills.filter(s => s.category === category);
 
-        container.innerHTML = filtered.map(s => `<span class="tech-tag">${s.name}</span>`).join('');
+        container.innerHTML = filtered.map(s => `
+            <span class="tech-tag" data-preview-tag="${s.tag}" data-preview-title="${s.title}" data-preview-body="${s.body}" data-preview-footer="${s.footer}">${s.name}</span>
+        `).join('');
+
+        initHoverPreviewModal();
     }
 
     async function fetchGitHubProjects() {
@@ -590,7 +619,7 @@
             const repos = await res.json();
             if (Array.isArray(repos) && repos.length > 0) {
                 container.innerHTML = repos.map(repo => `
-                    <div class="cert-card">
+                    <div class="cert-card" data-preview-tag="LIVE REPOSITORY" data-preview-title="${repo.name}" data-preview-body="${repo.description || 'Data engineering code repository.'}" data-preview-footer="★ ${repo.stargazers_count} | Language: ${repo.language || 'Python'}">
                         <div class="cert-icon">⚡</div>
                         <h3>${repo.name}</h3>
                         <p>${repo.description || 'Data engineering code repository.'}</p>
@@ -600,8 +629,55 @@
                         <a class="cert-link" href="${repo.html_url}" target="_blank" rel="noopener noreferrer">View Repository ↗</a>
                     </div>
                 `).join('');
+                initHoverPreviewModal();
             }
         } catch (e) {}
+    }
+
+    /* Interactive Hover Preview Modal Logic */
+    function initHoverPreviewModal() {
+        const modal = document.getElementById('hover-preview-modal');
+        if (!modal) return;
+
+        const tagEl = document.getElementById('prev-tag');
+        const titleEl = document.getElementById('prev-title');
+        const bodyEl = document.getElementById('prev-body');
+        const footerEl = document.getElementById('prev-footer');
+
+        const targets = document.querySelectorAll('[data-preview-title]');
+
+        targets.forEach(el => {
+            el.addEventListener('mouseenter', e => {
+                const tag = el.getAttribute('data-preview-tag') || 'PREVIEW';
+                const title = el.getAttribute('data-preview-title') || '';
+                const body = el.getAttribute('data-preview-body') || '';
+                const footer = el.getAttribute('data-preview-footer') || '';
+
+                if (tagEl) tagEl.textContent = tag;
+                if (titleEl) titleEl.textContent = title;
+                if (bodyEl) bodyEl.textContent = body;
+                if (footerEl) footerEl.textContent = footer;
+
+                modal.classList.add('visible');
+            });
+
+            el.addEventListener('mousemove', e => {
+                const modalWidth = 320;
+                const modalHeight = 180;
+                let left = e.clientX + 18;
+                let top = e.clientY + 18;
+
+                if (left + modalWidth > window.innerWidth) left = e.clientX - modalWidth - 12;
+                if (top + modalHeight > window.innerHeight) top = e.clientY - modalHeight - 12;
+
+                modal.style.left = `${left}px`;
+                modal.style.top = `${top}px`;
+            });
+
+            el.addEventListener('mouseleave', () => {
+                modal.classList.remove('visible');
+            });
+        });
     }
 
     function initClock() {
