@@ -116,7 +116,7 @@
         .apple-btn-primary:hover { background: #f5f5f7; transform: scale(1.02); }
         .apple-btn-link { color: var(--accent); font-size: 0.95rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem; }
 
-        /* Visible Default Section Styling */
+        /* Content Layout & Glass Cards */
         .content-wrapper { position: relative; z-index: 10; padding-bottom: 6rem; }
         
         section, .cert-card, .terminal-box {
@@ -127,7 +127,7 @@
             ), var(--glass-bg) !important;
             border: 1px solid var(--glass-border); border-radius: 22px;
             backdrop-filter: blur(24px) saturate(135%); transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            opacity: 1 !important; transform: none !important; /* Ensures instant visibility */
+            opacity: 1 !important; transform: none !important;
         }
 
         section { padding: clamp(3.5rem, 6vw, 5.5rem) clamp(1.5rem, 5vw, 5rem); max-width: 1100px; margin: 0 auto 3rem; scroll-margin-top: 5rem; }
@@ -136,7 +136,7 @@
         .section-header { margin-bottom: 2.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 1rem; }
         .section-header h2 { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; }
 
-        /* Live Indicator */
+        /* Status Dot */
         .status-dot {
             display: inline-block; width: 8px; height: 8px; background-color: var(--accent-green);
             border-radius: 50%; margin-right: 8px; box-shadow: 0 0 10px var(--accent-green);
@@ -156,7 +156,7 @@
         .experience-list { padding-left: 1.2rem; margin-top: 0.5rem; }
         .experience-list li { margin: 0.5rem 0; }
 
-        /* Console Terminal Box */
+        /* Terminal Console */
         .terminal-box {
             background: rgba(5, 5, 8, 0.9) !important; border: 1px solid rgba(255, 255, 255, 0.12);
             padding: 1.2rem; border-radius: 14px; font-family: var(--font-mono); font-size: 0.85rem;
@@ -254,7 +254,7 @@
                                 <div class="mega-column-title">FOCUS AREAS</div>
                                 <div class="mega-links">
                                     <a href="#skills">Distributed Compute</a>
-                                    <a href="#skills">AWS & Azure Architecture</a>
+                                    <a href="#skills">AWS Architecture</a>
                                     <a href="#skills">Lakehouse Optimization</a>
                                 </div>
                             </div>
@@ -330,7 +330,7 @@
             </div>
 
             <div class="content-wrapper">
-                <!-- Vision & System Terminal -->
+                <!-- 01 / About & System Terminal -->
                 <section id="about">
                     <div class="section-header"><h2>01 / The Vision</h2></div>
                     <div class="experience-item">
@@ -353,19 +353,85 @@
 
                             <div class="tech-list" style="margin-top: 1.5rem;">
                                 <span class="tech-tag">Location: Chennai, Tamil Nadu, India</span>
-                                <span class="tech-tag">Local Time: <strong id="local-clock">--:--:--</strong></span>
+                                <span class="tech-tag">Local Time: <strong id="local-clock"><span class="status-dot"></span>Connecting...</strong></span>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Dynamic Experience -->
+                <!-- 02 / Experience Section -->
                 <section id="experience">
                     <div class="section-header"><h2>02 / Experience</h2></div>
-                    <div id="dynamic-experience"></div>
+                    <div id="dynamic-experience">
+                        <div class="experience-item">
+                            <div class="exp-meta">
+                                <h3>Cognizant</h3>
+                                <p>Data Engineer</p>
+                                <p style="margin-top:.3rem;font-size:.85rem;color:var(--text-muted);">Dec 2025 – Present</p>
+                                <p style="font-size:.8rem;color:var(--text-muted);">Chennai, Tamil Nadu, India · Hybrid</p>
+                            </div>
+                            <div class="exp-details">
+                                <ul class="experience-list">
+                                    <li>Building and supporting enterprise-grade cloud data solutions on Amazon Web Services (AWS).</li>
+                                    <li>Developing scalable ETL/ELT workflows using AWS Glue, AWS Lambda, and Step Functions.</li>
+                                    <li>Optimizing query performance across Amazon S3, Redshift, and Athena for distributed analysis.</li>
+                                    <li>Building stream and batch data integration pipelines using AWS Kinesis and PySpark.</li>
+                                </ul>
+                                <div class="tech-list" style="margin-top: 1rem;">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">SQL</span>
+                                    <span class="tech-tag">AWS Glue</span>
+                                    <span class="tech-tag">Amazon S3</span>
+                                    <span class="tech-tag">Redshift</span>
+                                    <span class="tech-tag">Athena</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="exp-meta">
+                                <h3>Cognizant</h3>
+                                <p>Program Analyst Trainee</p>
+                                <p style="margin-top:.3rem;font-size:.85rem;color:var(--text-muted);">Dec 2024 – Dec 2025</p>
+                                <p style="font-size:.8rem;color:var(--text-muted);">Chennai, Tamil Nadu, India</p>
+                            </div>
+                            <div class="exp-details">
+                                <ul class="experience-list">
+                                    <li>Analyzed technical requirements for data applications and automated pipeline workflows.</li>
+                                    <li>Executed SQL queries for database analysis, report generation, and data validation.</li>
+                                </ul>
+                                <div class="tech-list" style="margin-top: 1rem;">
+                                    <span class="tech-tag">SQL</span>
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Data Analysis</span>
+                                    <span class="tech-tag">Problem Solving</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="exp-meta">
+                                <h3>Omega Healthcare</h3>
+                                <p>Accounts Receivable Caller</p>
+                                <p style="margin-top:.3rem;font-size:.85rem;color:var(--text-muted);">Jun 2023 – Nov 2024</p>
+                                <p style="font-size:.8rem;color:var(--text-muted);">Tamil Nadu, India</p>
+                            </div>
+                            <div class="exp-details">
+                                <ul class="experience-list">
+                                    <li>Managed financial claim investigations and resolved denied/pending insurance claims.</li>
+                                    <li>Analyzed claim datasets to optimize reimbursement turnaround time.</li>
+                                </ul>
+                                <div class="tech-list" style="margin-top: 1rem;">
+                                    <span class="tech-tag">Analytical Skills</span>
+                                    <span class="tech-tag">Communication</span>
+                                    <span class="tech-tag">Time Management</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </section>
 
-                <!-- Dynamic Skills Matrix -->
+                <!-- 03 / Infrastructure Stack -->
                 <section id="skills">
                     <div class="section-header"><h2>03 / Infrastructure Stack</h2></div>
                     <div class="filter-container" id="skill-filters">
@@ -375,24 +441,67 @@
                         <button class="filter-btn" onclick="filterSkillCategory('Cloud & Storage', this)">Cloud & Storage</button>
                         <button class="filter-btn" onclick="filterSkillCategory('Languages', this)">Languages</button>
                     </div>
-                    <div id="dynamic-skills" class="tech-list"></div>
-                </section>
-
-                <!-- Dynamic GitHub Feed -->
-                <section id="github">
-                    <div class="section-header"><h2>Live Repositories (GitHub API)</h2></div>
-                    <div id="dynamic-github-repos" class="cert-grid">
-                        <p style="color:var(--text-muted);">Fetching live repositories from GitHub...</p>
+                    <div id="dynamic-skills" class="tech-list">
+                        <span class="tech-tag">Apache Spark (PySpark)</span>
+                        <span class="tech-tag">Spark SQL</span>
+                        <span class="tech-tag">Apache Airflow</span>
+                        <span class="tech-tag">Apache Kafka</span>
+                        <span class="tech-tag">AWS (S3, Glue, Redshift, Athena)</span>
+                        <span class="tech-tag">Azure Data Factory</span>
+                        <span class="tech-tag">Snowflake Warehouse</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">SQL</span>
                     </div>
                 </section>
 
-                <!-- Dynamic Certifications -->
-                <section id="certs">
-                    <div class="section-header"><h2>04 / Certifications & Recognitions</h2></div>
-                    <div id="dynamic-certs" class="cert-grid"></div>
+                <!-- 04 / Live GitHub Feed -->
+                <section id="github">
+                    <div class="section-header"><h2>Live Repositories (GitHub API)</h2></div>
+                    <div id="dynamic-github-repos" class="cert-grid">
+                        <div class="cert-card">
+                            <div class="cert-icon">⚡</div>
+                            <h3>Enterprise Data Pipeline</h3>
+                            <p>Scalable PySpark ETL workflow targeting AWS Glue and S3 Delta Lake.</p>
+                            <p style="font-size:0.78rem; color: var(--accent); margin-bottom: 0.8rem;">★ Live | 𝌀 Python</p>
+                            <a class="cert-link" href="https://github.com/selva0604200" target="_blank" rel="noopener noreferrer">View Repository ↗</a>
+                        </div>
+                        <div class="cert-card">
+                            <div class="cert-icon">⚡</div>
+                            <h3>Cloud Analytics Warehouse</h3>
+                            <p>SQL benchmarks and data modeling for Snowflake & Amazon Redshift.</p>
+                            <p style="font-size:0.78rem; color: var(--accent); margin-bottom: 0.8rem;">★ Live | 𝌀 SQL</p>
+                            <a class="cert-link" href="https://github.com/selva0604200" target="_blank" rel="noopener noreferrer">View Repository ↗</a>
+                        </div>
+                    </div>
                 </section>
 
-                <!-- Dynamic Contact Section -->
+                <!-- 05 / Certifications -->
+                <section id="certs">
+                    <div class="section-header"><h2>04 / Certifications & Recognitions</h2></div>
+                    <div id="dynamic-certs" class="cert-grid">
+                        <div class="cert-card">
+                            <div class="cert-icon">AI</div>
+                            <h3>Claude Partner Badge - Claude Code</h3>
+                            <p>Anthropic · Issued Sep 2026</p>
+                            <a class="cert-link" href="https://www.credly.com/badges/f3dc86b3-9f07-497d-8925-32d9a602271d/linked_in_profile" target="_blank" rel="noopener noreferrer">Show credential ↗</a>
+                        </div>
+                        <div class="cert-card">
+                            <div class="cert-icon">AI</div>
+                            <h3>AI Fluency Framework & Foundations</h3>
+                            <p>Anthropic · Issued Sep 2026</p>
+                            <a class="cert-link" href="https://verify.skilljar.com/c/52ratjsamy5w" target="_blank" rel="noopener noreferrer">Show credential ↗</a>
+                        </div>
+                        <div class="cert-card">
+                            <div class="cert-icon">◆</div>
+                            <h3>Context Engineering Foundation</h3>
+                            <p>Cognizant · Issued Apr 2026</p>
+                            <a class="cert-link" href="https://www.credly.com/badges/f58fcdc2-a8cc-4c02-a352-4ae7a851d3b5/linked_in_profile" target="_blank" rel="noopener noreferrer">Show credential ↗</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 06 / Contact -->
                 <section id="contact">
                     <div class="section-header"><h2>05 / Initiate Sequence</h2></div>
                     <div class="experience-item">
@@ -402,7 +511,20 @@
                         </div>
                         <div class="exp-details">
                             <p>Whether you have a data lake architecture problem, high-latency PySpark pipelines, or cloud data warehousing requirements, my inbox is open.</p>
-                            <div class="contact-links" id="dynamic-contact-links"></div>
+                            <div class="contact-links" id="dynamic-contact-links">
+                                <a class="contact-link" href="https://mail.google.com/mail/?view=cm&fs=1&to=abishake06042002@gmail.com" target="_blank" rel="noopener noreferrer">
+                                    <svg viewBox="0 0 24 24"><path d="M3.5 18.5V5.8L12 12.2l8.5-6.4v12.7" fill="none" stroke="#EA4335" stroke-width="1.9" stroke-linecap="round"/><path d="M3.5 5.8A2.3 2.3 0 0 1 5.8 3.5h12.4a2.3 2.3 0 0 1 2.3 2.3" fill="none" stroke="#4285F4" stroke-width="1.9"/><path d="M3.5 18.5V5.8L12 12.2" fill="none" stroke="#FBBC04" stroke-width="1.9"/><path d="M12 12.2 20.5 5.8v12.7" fill="none" stroke="#34A853" stroke-width="1.9"/></svg>
+                                    <span>Gmail Direct</span>
+                                </a>
+                                <a class="contact-link" href="https://www.linkedin.com/in/selvendiran-s-6a91351a8/" target="_blank" rel="noopener noreferrer">
+                                    <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V8.999h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.287zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM3.555 20.452h3.558V8.999H3.555v11.453z"/></svg>
+                                    <span>LinkedIn</span>
+                                </a>
+                                <a class="contact-link" href="https://github.com/selva0604200" target="_blank" rel="noopener noreferrer">
+                                    <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.292-1.552 3.297-1.23 3.297-1.23.647 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.43.372.823 1.102.823 2.222v3.293c0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12z"/></svg>
+                                    <span>GitHub Repositories</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -412,7 +534,7 @@
         </main>
     </div>
 
-    <!-- Resilient Self-Contained Script -->
+    <!-- Script Engine -->
     <script>
     const portfolioData = {
         profile: {
@@ -423,43 +545,6 @@
             githubUser: "selva0604200",
             linkedin: "https://www.linkedin.com/in/selvendiran-s-6a91351a8/"
         },
-        experience: [
-            {
-                company: "Cognizant",
-                role: "Data Engineer",
-                period: "Dec 2025 – Present",
-                location: "Chennai, India · Hybrid",
-                bullets: [
-                    "Building and supporting enterprise-grade cloud data solutions on Amazon Web Services (AWS).",
-                    "Developing scalable ETL/ELT workflows using AWS Glue, AWS Lambda, and Step Functions.",
-                    "Optimizing query performance across Amazon S3, Redshift, and Athena for distributed analysis.",
-                    "Building stream and batch data integration pipelines using AWS Kinesis and PySpark."
-                ],
-                tags: ["Python", "SQL", "AWS Glue", "S3", "Redshift", "Athena"]
-            },
-            {
-                company: "Cognizant",
-                role: "Program Analyst Trainee",
-                period: "Dec 2024 – Dec 2025",
-                location: "Chennai, India",
-                bullets: [
-                    "Analyzed complex technical requirements for data applications and automated pipeline workflows.",
-                    "Executed SQL queries for database analysis, report generation, and data validation."
-                ],
-                tags: ["SQL", "Python", "Data Analysis", "Problem Solving"]
-            },
-            {
-                company: "Omega Healthcare Management Services",
-                role: "Accounts Receivable Caller",
-                period: "Jun 2023 – Nov 2024",
-                location: "Tamil Nadu, India",
-                bullets: [
-                    "Managed financial claim investigations and resolved denied/pending insurance claims.",
-                    "Analyzed claim datasets to optimize reimbursement turnaround time."
-                ],
-                tags: ["Analytical Skills", "Communication", "Time Management"]
-            }
-        ],
         skills: [
             { category: "Compute", name: "Apache Spark (PySpark)" },
             { category: "Compute", name: "Spark SQL" },
@@ -471,37 +556,10 @@
             { category: "Cloud & Storage", name: "PostgreSQL" },
             { category: "Languages", name: "Python" },
             { category: "Languages", name: "SQL" }
-        ],
-        certifications: [
-            {
-                title: "Claude Partner Badge - Claude Code",
-                issuer: "Anthropic",
-                date: "Sep 2026",
-                link: "https://www.credly.com/badges/f3dc86b3-9f07-497d-8925-32d9a602271d/linked_in_profile",
-                icon: "AI"
-            },
-            {
-                title: "AI Fluency Framework & Foundations",
-                issuer: "Anthropic",
-                date: "Sep 2026",
-                link: "https://verify.skilljar.com/c/52ratjsamy5w",
-                icon: "AI"
-            },
-            {
-                title: "Context Engineering Foundation",
-                issuer: "Cognizant",
-                date: "Apr 2026",
-                link: "https://www.credly.com/badges/f58fcdc2-a8cc-4c02-a352-4ae7a851d3b5/linked_in_profile",
-                icon: "◆"
-            }
         ]
     };
 
     document.addEventListener("DOMContentLoaded", () => {
-        try { renderExperience(); } catch(e){}
-        try { renderSkills('All'); } catch(e){}
-        try { renderCertifications(); } catch(e){}
-        try { renderContactLinks(); } catch(e){}
         try { fetchGitHubProjects(); } catch(e){}
         try { initClock(); } catch(e){}
         try { initMegaMenuLogic(); } catch(e){}
@@ -510,73 +568,18 @@
         try { initCanvasAnimation(); } catch(e){}
     });
 
-    function renderExperience() {
-        const container = document.getElementById("dynamic-experience");
-        if (!container) return;
-        container.innerHTML = portfolioData.experience.map(item => `
-            <div class="experience-item">
-                <div class="exp-meta">
-                    <h3>${item.company}</h3>
-                    <p>${item.role}</p>
-                    <p style="margin-top:.3rem;font-size:.85rem;color:var(--text-muted);">${item.period}</p>
-                    <p style="font-size:.8rem;color:var(--text-muted);">${item.location}</p>
-                </div>
-                <div class="exp-details">
-                    <ul class="experience-list">
-                        ${item.bullets.map(b => `<li>${b}</li>`).join('')}
-                    </ul>
-                    <div class="tech-list" style="margin-top: 1rem;">
-                        ${item.tags.map(t => `<span class="tech-tag">${t}</span>`).join('')}
-                    </div>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    function renderSkills(category = 'All') {
-        const container = document.getElementById("dynamic-skills");
-        if (!container) return;
-        const filtered = category === 'All' ? portfolioData.skills : portfolioData.skills.filter(s => s.category === category);
-        container.innerHTML = filtered.map(s => `<span class="tech-tag">${s.name}</span>`).join('');
-    }
-
-    function filterSkillCategory(cat, btn) {
+    function filterSkillCategory(category, btn) {
         document.querySelectorAll('#skill-filters .filter-btn').forEach(b => b.classList.remove('active'));
         if (btn) btn.classList.add('active');
-        renderSkills(cat);
-    }
 
-    function renderCertifications() {
-        const container = document.getElementById("dynamic-certs");
+        const container = document.getElementById("dynamic-skills");
         if (!container) return;
-        container.innerHTML = portfolioData.certifications.map(c => `
-            <div class="cert-card">
-                <div class="cert-icon">${c.icon}</div>
-                <h3>${c.title}</h3>
-                <p>${c.issuer} · Issued ${c.date}</p>
-                <a class="cert-link" href="${c.link}" target="_blank" rel="noopener noreferrer">Show credential ↗</a>
-            </div>
-        `).join('');
-    }
 
-    function renderContactLinks() {
-        const container = document.getElementById("dynamic-contact-links");
-        if (!container) return;
-        const emailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${portfolioData.profile.email}`;
-        container.innerHTML = `
-            <a class="contact-link" href="${emailUrl}" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24"><path d="M3.5 18.5V5.8L12 12.2l8.5-6.4v12.7" fill="none" stroke="#EA4335" stroke-width="1.9" stroke-linecap="round"/><path d="M3.5 5.8A2.3 2.3 0 0 1 5.8 3.5h12.4a2.3 2.3 0 0 1 2.3 2.3" fill="none" stroke="#4285F4" stroke-width="1.9"/><path d="M3.5 18.5V5.8L12 12.2" fill="none" stroke="#FBBC04" stroke-width="1.9"/><path d="M12 12.2 20.5 5.8v12.7" fill="none" stroke="#34A853" stroke-width="1.9"/></svg>
-                <span>Gmail Direct</span>
-            </a>
-            <a class="contact-link" href="${portfolioData.profile.linkedin}" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V8.999h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.287zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM3.555 20.452h3.558V8.999H3.555v11.453z"/></svg>
-                <span>LinkedIn</span>
-            </a>
-            <a class="contact-link" href="https://github.com/${portfolioData.profile.githubUser}" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.292-1.552 3.297-1.23 3.297-1.23.647 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.43.372.823 1.102.823 2.222v3.293c0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12z"/></svg>
-                <span>GitHub Repositories</span>
-            </a>
-        `;
+        const filtered = category === 'All' 
+            ? portfolioData.skills 
+            : portfolioData.skills.filter(s => s.category === category);
+
+        container.innerHTML = filtered.map(s => `<span class="tech-tag">${s.name}</span>`).join('');
     }
 
     async function fetchGitHubProjects() {
@@ -585,24 +588,20 @@
         try {
             const res = await fetch(`https://api.github.com/users/${portfolioData.profile.githubUser}/repos?sort=updated&per_page=4`);
             const repos = await res.json();
-            if (!Array.isArray(repos) || repos.length === 0) {
-                container.innerHTML = `<p style="color:var(--text-muted);">No public repositories found.</p>`;
-                return;
+            if (Array.isArray(repos) && repos.length > 0) {
+                container.innerHTML = repos.map(repo => `
+                    <div class="cert-card">
+                        <div class="cert-icon">⚡</div>
+                        <h3>${repo.name}</h3>
+                        <p>${repo.description || 'Data engineering code repository.'}</p>
+                        <p style="font-size:0.78rem; color: var(--accent); margin-bottom: 0.8rem;">
+                            ★ ${repo.stargazers_count} | 𝌀 ${repo.language || 'Python'}
+                        </p>
+                        <a class="cert-link" href="${repo.html_url}" target="_blank" rel="noopener noreferrer">View Repository ↗</a>
+                    </div>
+                `).join('');
             }
-            container.innerHTML = repos.map(repo => `
-                <div class="cert-card">
-                    <div class="cert-icon">⚡</div>
-                    <h3>${repo.name}</h3>
-                    <p>${repo.description || 'Data engineering code repository.'}</p>
-                    <p style="font-size:0.78rem; color: var(--accent); margin-bottom: 0.8rem;">
-                        ★ ${repo.stargazers_count} | 𝌀 ${repo.language || 'Python'}
-                    </p>
-                    <a class="cert-link" href="${repo.html_url}" target="_blank" rel="noopener noreferrer">View Repository ↗</a>
-                </div>
-            `).join('');
-        } catch (e) {
-            container.innerHTML = `<p style="color:var(--text-muted);">Unable to fetch live GitHub projects.</p>`;
-        }
+        } catch (e) {}
     }
 
     function initClock() {
@@ -665,24 +664,6 @@
                 index++;
             }
         }, 1800);
-    }
-
-    function initObservers() {
-        const navLinks = [...document.querySelectorAll('nav a[href^="#"]')].filter(a => a.getAttribute('href').length > 1);
-        const sections = navLinks.map(a => {
-            try { return document.querySelector(a.getAttribute('href')); } catch(e) { return null; }
-        }).filter(Boolean);
-
-        window.addEventListener('scroll', () => {
-            const y = window.scrollY + 120;
-            let current = sections[0];
-            for (const section of sections) {
-                if (section.offsetTop <= y) current = section;
-            }
-            if (current) {
-                navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current.id));
-            }
-        }, { passive: true });
     }
 
     function initCanvasAnimation() {
