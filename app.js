@@ -85,7 +85,7 @@ const portfolioData = {
 };
 
 /**
- * 2. DOM RENDERERS & LIVE API FETCHERS
+ * 2. DOM RENDERERS & LIVE INTERACTION LOGIC
  */
 document.addEventListener("DOMContentLoaded", () => {
     renderExperience();
@@ -95,6 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchGitHubProjects();
     initClock();
     initObservers();
+    initSpotlightPhysics();
     initCanvasAnimation();
 });
 
@@ -209,10 +210,24 @@ function initClock() {
     if (!clockEl) return;
     const update = () => {
         const options = { timeZone: "Asia/Kolkata", hour: '2-digit', minute: '2-digit', second: '2-digit' };
-        clockEl.textContent = new Date().toLocaleTimeString("en-US", options) + " IST";
+        const timeString = new Date().toLocaleTimeString("en-US", options);
+        clockEl.innerHTML = `<span class="status-dot"></span>${timeString} IST`;
     };
     update();
     setInterval(update, 1000);
+}
+
+function initSpotlightPhysics() {
+    document.addEventListener('mousemove', (e) => {
+        const elements = document.querySelectorAll('section, .cert-card');
+        elements.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            el.style.setProperty('--mouse-x', `${x}px`);
+            el.style.setProperty('--mouse-y', `${y}px`);
+        });
+    });
 }
 
 function initObservers() {
