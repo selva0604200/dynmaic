@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta content="Selvendiran S - Lead Data Engineer Portfolio." name="description"/>
     <title>Selvendiran S | Data Platform Engineer</title>
-    <meta name="theme-color" content="#030508">
+    <meta name="theme-color" content="#030712">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23000'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Arial' font-size='34' font-weight='700' fill='%232997ff'%3ES%3C/text%3E%3C/svg%3E">
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -13,26 +13,24 @@
     
     <style>
         :root {
-            --bg-base: #030508;
-            --surface-glass: rgba(13, 16, 23, 0.65);
-            --surface-hover: rgba(22, 27, 38, 0.85);
+            --bg-base: #030712;
+            --surface-glass: rgba(15, 23, 42, 0.65);
             --border-glass: rgba(255, 255, 255, 0.08);
-            --border-accent: rgba(41, 151, 255, 0.4);
+            --border-hover: rgba(56, 189, 248, 0.45);
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
             --text-sub: #cbd5e1;
-            --accent-blue: #2997ff;
-            --accent-cyan: #38bdf8;
+            --accent-blue: #38bdf8;
+            --accent-indigo: #818cf8;
             --accent-green: #34d399;
-            --accent-purple: #a855f7;
+            --accent-purple: #c084fc;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
         }
 
         * {
             margin: 0; padding: 0; box-sizing: border-box;
-            font-family: var(--font-sans);
-            -webkit-font-smoothing: antialiased;
+            font-family: var(--font-sans); -webkit-font-smoothing: antialiased;
         }
 
         html { scroll-behavior: smooth; min-height: 100%; }
@@ -41,13 +39,13 @@
             overflow-x: hidden; overflow-y: scroll; letter-spacing: -0.02em;
         }
 
-        /* Ambient Lighting Mesh Backdrop */
+        /* Ambient Glow & Noise Background */
         .ambient-mesh {
             position: fixed; inset: 0; z-index: -1; pointer-events: none;
             background: 
-                radial-gradient(circle at 50% 0%, rgba(41, 151, 255, 0.15), transparent 45%),
-                radial-gradient(circle at 10% 50%, rgba(56, 189, 248, 0.08), transparent 35%),
-                radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.06), transparent 40%);
+                radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.15), transparent 45%),
+                radial-gradient(circle at 15% 65%, rgba(129, 140, 248, 0.1), transparent 35%),
+                radial-gradient(circle at 85% 85%, rgba(192, 132, 252, 0.08), transparent 40%);
             filter: blur(90px);
         }
 
@@ -60,31 +58,31 @@
         #galaxy-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.85; }
         .ui-layer { position: relative; z-index: 10; }
 
-        /* Floating Cursor Tooltip Modal */
+        /* Floating Cursor Tooltip Card */
         #hover-preview-modal {
             position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
             width: 320px; padding: 1.25rem; border-radius: 16px;
-            background: rgba(10, 14, 23, 0.94); border: 1px solid var(--border-accent);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(41, 151, 255, 0.2);
+            background: rgba(15, 23, 42, 0.95); border: 1px solid var(--border-hover);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.2);
             backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
             opacity: 0; transform: scale(0.92) translateY(10px);
             transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         #hover-preview-modal.visible { opacity: 1; transform: scale(1) translateY(0); }
-        .preview-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem; }
+        .preview-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; color: var(--accent-blue); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem; }
         .preview-title { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
         .preview-body { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
         .preview-footer { margin-top: 0.8rem; padding-top: 0.6rem; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.75rem; color: var(--accent-green); font-family: var(--font-mono); }
 
-        /* Floating Island Navigation */
+        /* Floating Navigation Bar */
         .nav-wrapper {
-            position: fixed; top: 1.2rem; left: 50%; transform: translateX(-50%);
+            position: fixed; top: 1rem; left: 50%; transform: translateX(-50%);
             width: clamp(340px, 92vw, 1100px); z-index: 1000;
         }
         nav {
-            width: 100%; height: 54px; padding: 0 1.5rem;
+            width: 100%; height: 56px; padding: 0 1.5rem;
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(10, 14, 23, 0.75) !important; border: 1px solid var(--border-glass) !important;
+            background: rgba(15, 23, 42, 0.8) !important; border: 1px solid var(--border-glass) !important;
             border-radius: 999px; backdrop-filter: blur(24px) saturate(180%);
             -webkit-backdrop-filter: blur(24px) saturate(180%);
             box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
@@ -92,14 +90,20 @@
         .nav-left { display: flex; align-items: center; gap: 2rem; height: 100%; }
         .logo { font-weight: 800; font-size: 0.95rem; color: #ffffff; text-decoration: none; letter-spacing: -0.02em; }
         
-        .nav-links { display: flex; gap: 0.5rem; list-style: none; height: 100%; margin: 0; padding: 0; }
+        .nav-links { display: flex; gap: 0.3rem; list-style: none; height: 100%; margin: 0; padding: 0; }
         .nav-links > li { position: relative; height: 100%; display: flex; align-items: center; }
         .nav-links > li > a {
             color: var(--text-secondary); text-decoration: none; font-size: 0.82rem; font-weight: 500;
             height: 100%; display: flex; align-items: center; padding: 0 0.9rem; transition: all 0.2s ease;
             border-radius: 999px;
         }
-        .nav-links > li:hover > a, .nav-links > li.menu-open > a { color: #ffffff !important; background: rgba(255,255,255,0.06); }
+        
+        /* Bridge element to prevent hover loss when moving down into mega menu */
+        .nav-links > li.has-mega-menu::after {
+            content: ''; position: absolute; top: 100%; left: 0; width: 100%; height: 20px; pointer-events: auto;
+        }
+
+        .nav-links > li:hover > a, .nav-links > li.active-menu > a { color: #ffffff !important; background: rgba(255,255,255,0.06); }
 
         .btn-nav-primary {
             display: inline-flex; align-items: center; justify-content: center;
@@ -114,7 +118,7 @@
             position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%) translateY(-8px);
             width: clamp(320px, 88vw, 900px); padding: 2rem 2.5rem;
             display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 2.5rem;
-            background: rgba(10, 14, 23, 0.95) !important; border: 1px solid var(--border-glass) !important;
+            background: rgba(15, 23, 42, 0.96) !important; border: 1px solid var(--border-glass) !important;
             border-radius: 24px; box-shadow: 0 30px 70px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.1);
             backdrop-filter: blur(32px) saturate(180%); -webkit-backdrop-filter: blur(32px) saturate(180%);
             opacity: 0; visibility: hidden; pointer-events: none;
@@ -122,7 +126,7 @@
             z-index: 1001;
         }
 
-        .nav-links > li:hover .mega-menu, .nav-links > li.menu-open .mega-menu {
+        .nav-links > li:hover .mega-menu, .nav-links > li.active-menu .mega-menu {
             opacity: 1 !important; visibility: visible !important; pointer-events: auto !important;
             transform: translateX(-50%) translateY(0) !important; transition-delay: 0s !important;
         }
@@ -165,13 +169,13 @@
         .apple-btn-primary:hover { background: #f5f5f7; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(255,255,255,0.2); }
         .apple-btn-link { color: var(--accent-blue); font-size: 0.95rem; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem; }
 
-        /* Bento & Section Layout */
+        /* Specular Glass Cards */
         .content-wrapper { position: relative; z-index: 10; padding-bottom: 6rem; }
         
         section, .cert-card, .terminal-box {
             background: radial-gradient(
                 600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-                rgba(41, 151, 255, 0.12), 
+                rgba(56, 189, 248, 0.12), 
                 transparent 40%
             ), var(--surface-glass) !important;
             border: 1px solid var(--border-glass); border-radius: 24px;
@@ -185,7 +189,7 @@
         .section-header { margin-bottom: 2.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 1rem; }
         .section-header h2 { font-size: 0.78rem; font-weight: 700; color: var(--accent-blue); letter-spacing: 0.15em; text-transform: uppercase; }
 
-        /* Experience Items */
+        /* Experience Layout */
         .experience-item { display: grid; grid-template-columns: 1fr 2.5fr; gap: 3rem; margin-bottom: 2.5rem; }
         .experience-item:last-child { margin-bottom: 0; }
         .exp-meta h3 { color: #ffffff; font-size: 1.6rem; font-weight: 700; margin-bottom: 0.3rem; letter-spacing: -0.02em; }
@@ -203,7 +207,7 @@
         .terminal-header { display: flex; gap: 6px; margin-bottom: 0.8rem; }
         .term-dot { width: 10px; height: 10px; border-radius: 50%; }
         .term-red { background: #ff5f56; } .term-yellow { background: #ffbd2e; } .term-green { background: #27c93f; }
-        .terminal-cmd { color: var(--accent-cyan); }
+        .terminal-cmd { color: var(--accent-blue); }
         .terminal-output { color: var(--accent-green); margin-top: 0.4rem; white-space: pre-wrap; line-height: 1.5; }
 
         /* Tech Filters & Pills */
@@ -221,8 +225,8 @@
             transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
         }
         .tech-tag:hover {
-            border-color: var(--accent-blue) !important; box-shadow: 0 0 20px rgba(41, 151, 255, 0.35);
-            transform: translateY(-2px); background: rgba(41, 151, 255, 0.18) !important;
+            border-color: var(--accent-blue) !important; box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+            transform: translateY(-2px); background: rgba(56, 189, 248, 0.18) !important;
         }
 
         /* Grid Layouts */
@@ -232,8 +236,8 @@
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .cert-card:hover {
-            border-color: var(--border-accent) !important;
-            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(41, 151, 255, 0.2);
+            border-color: var(--border-hover) !important;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.2);
             transform: translateY(-3px) !important;
         }
         .cert-icon { font-size: 1.25rem; margin-bottom: 0.8rem; color: var(--accent-blue); font-weight: 700; }
@@ -259,7 +263,7 @@
             nav { height: 48px; padding: 0 1rem; }
             .mega-menu { position: fixed; top: 60px; left: 0; width: 100vw; transform: none; grid-template-columns: 1fr; border-radius: 20px; }
             .experience-item { grid-template-columns: 1fr; gap: 1rem; }
-            .nav-links { gap: 0.5rem; }
+            .nav-links { gap: 0.3rem; }
             .apple-hero-title { font-size: clamp(2.5rem, 9vw, 4rem) !important; }
             #hover-preview-modal { display: none !important; }
         }
@@ -270,7 +274,7 @@
     <div class="noise-overlay"></div>
     <canvas aria-hidden="true" id="galaxy-canvas"></canvas>
 
-    <!-- Dynamic Hover Preview Card -->
+    <!-- Floating Cursor Hover Preview Tooltip Card -->
     <div id="hover-preview-modal">
         <span class="preview-tag" id="prev-tag">INFRASTRUCTURE PREVIEW</span>
         <div class="preview-title" id="prev-title">PySpark Compute Engine</div>
@@ -279,7 +283,7 @@
     </div>
 
     <div class="ui-layer" id="ui-layer">
-        <!-- Floating Glass Nav Bar with Seamless Hover Dropdowns -->
+        <!-- Floating Glass Nav Bar with Seamless Dropdowns -->
         <div class="nav-wrapper">
             <nav aria-label="Main Navigation">
                 <div class="nav-left">
@@ -671,7 +675,7 @@
         </main>
     </div>
 
-    <!-- Script Engine -->
+    <!-- Embedded Engine Scripts -->
     <script>
     const portfolioData = {
         profile: {
@@ -760,12 +764,12 @@
             item.addEventListener('mouseleave', () => {
                 timer = setTimeout(() => {
                     item.classList.remove('menu-open');
-                }, 180);
+                }, 200);
             });
         });
     }
 
-    /* Interactive Tooltip Card Controller */
+    /* Interactive Tooltip Modal */
     function initHoverPreviewModal() {
         const modal = document.getElementById('hover-preview-modal');
         if (!modal) return;
