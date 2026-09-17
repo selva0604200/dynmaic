@@ -3,291 +3,306 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <meta content="Selvendiran S - Lead Data Engineer Portfolio." name="description"/>
-    <title>Selvendiran S | Data Engineer</title>
+    <meta content="Selvendiran S - Enterprise Data Architect & Cloud Engineer." name="description"/>
+    <title>Selvendiran S | Data Platform Engineer</title>
     <meta name="theme-color" content="#000000">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23000'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Arial' font-size='34' font-weight='700' fill='%232997ff'%3ES%3C/text%3E%3C/svg%3E">
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
     
     <style>
         :root {
-            --bg-color: #000000;
-            --text-main: #f5f5f7;
-            --text-muted: #a1a1a6;
-            --text-sub: #d2d2d7;
-            --accent: #2997ff;
-            --glass-border: rgba(255, 255, 255, 0.14);
-            --glass-bg: rgba(18, 18, 20, 0.35);
+            --bg-base: #000000;
+            --surface-card: rgba(13, 14, 18, 0.65);
+            --surface-hover: rgba(22, 24, 31, 0.85);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(41, 151, 255, 0.5);
+            --text-primary: #f5f5f7;
+            --text-secondary: #86868b;
+            --text-sub: #a1a1a6;
+            --accent-blue: #2997ff;
+            --accent-cyan: #64d2ff;
+            --accent-green: #30d158;
+            --font-mono: 'JetBrains Mono', monospace;
         }
 
         * {
             margin: 0; padding: 0; box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
         html { scroll-behavior: smooth; min-height: 100%; }
         body {
-            background-color: var(--bg-color); color: var(--text-main);
-            overflow-x: hidden; overflow-y: scroll; letter-spacing: -0.015em;
-            background: radial-gradient(ellipse at 50% 18%, rgba(10,35,75,.32), transparent 48%),
-                        radial-gradient(ellipse at 12% 70%, rgba(0,75,130,.12), transparent 42%), #000;
+            background-color: var(--bg-base); color: var(--text-primary);
+            overflow-x: hidden; letter-spacing: -0.015em;
         }
 
-        :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
-        .skip-link {
-            position: fixed; left: 1rem; top: -4rem; z-index: 10000; padding: .75rem 1rem;
-            background: #fff; color: #000; border-radius: 999px; font-weight: 700; transition: top .2s ease;
+        /* Ambient Glow Backdrop */
+        .ambient-mesh {
+            position: fixed; inset: 0; z-index: -1; pointer-events: none;
+            background: 
+                radial-gradient(circle at 50% -10%, rgba(41, 151, 255, 0.18), transparent 45%),
+                radial-gradient(circle at 10% 60%, rgba(100, 210, 255, 0.08), transparent 35%),
+                radial-gradient(circle at 90% 80%, rgba(48, 209, 88, 0.05), transparent 40%);
+            filter: blur(80px);
         }
-        .skip-link:focus { top: 1rem; }
 
-        /* Background Canvas & Noise */
-        .noise-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
-            background-size: 24px 24px; opacity: 0.4; z-index: 2; pointer-events: none; mix-blend-mode: screen;
-        }
-        #galaxy-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; background: transparent; pointer-events: none; display: block; opacity: 0.98; }
-        .base-black {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2;
-            background: radial-gradient(ellipse at 50% 35%, rgba(8,28,60,.38), transparent 58%),
-                        linear-gradient(180deg,#02040a 0%,#000 55%,#010207 100%);
-        }
+        #galaxy-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.85; }
         .ui-layer { position: relative; z-index: 10; }
 
-        /* Navigation */
+        /* Floating Minimal Glass Nav */
         nav {
-            position: fixed; top: 0; width: 100%; height: 52px; padding: 0 clamp(1.25rem, 5vw, 5rem);
-            display: flex; justify-content: space-between; align-items: center; background: transparent !important;
-            border-bottom: none !important; z-index: 100;
+            position: fixed; top: 1.2rem; left: 50%; transform: translateX(-50%);
+            width: clamp(320px, 90vw, 1000px); height: 48px; padding: 0 1.2rem;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(10, 10, 12, 0.75); border: 1px solid var(--border-glass);
+            border-radius: 999px; backdrop-filter: blur(24px) saturate(180%);
+            z-index: 100; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
-        .nav-left { display: flex; align-items: center; gap: 3rem; }
-        .logo { font-weight: 600; font-size: 0.95rem; color: #f5f5f7; text-decoration: none; letter-spacing: -0.02em; }
-        .nav-links { display: flex; gap: 2.2rem; list-style: none; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; font-weight: 400; transition: color 0.25s ease; }
-        .nav-links a:hover, .nav-links a.active { color: #ffffff !important; }
-
-        .nav-right .btn-primary {
-            display: inline-flex; align-items: center; justify-content: center;
-            min-height: 38px; padding: 0 18px; border: 1px solid rgba(255,255,255,.24); border-radius: 999px;
-            background: linear-gradient(180deg,rgba(255,255,255,.96),rgba(225,231,240,.88));
-            color: #0a0d13; font-size: .76rem; font-weight: 650; text-decoration: none; transition: all .35s ease;
+        .logo { font-weight: 700; font-size: 0.9rem; color: #fff; text-decoration: none; letter-spacing: -0.02em; }
+        .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.8rem; font-weight: 500; transition: color 0.2s ease; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; }
+        .btn-nav-primary {
+            background: #fff; color: #000; padding: 0.35rem 0.9rem; border-radius: 999px;
+            font-size: 0.75rem; font-weight: 600; text-decoration: none; transition: transform 0.2s ease, background 0.2s ease;
         }
-        .nav-right .btn-primary:hover { transform: translateY(-2px); background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+        .btn-nav-primary:hover { transform: scale(1.03); background: #e5e5ea; }
 
         /* Hero */
-        .apple-hero {
-            min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; padding: 8rem 1.5rem 4rem; position: relative; z-index: 5;
+        .hero {
+            min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 7rem 1.5rem 3rem;
         }
-        .apple-eyebrow { font-size: clamp(0.85rem, 1.2vw, 1rem); font-weight: 500; color: var(--text-muted); text-transform: uppercase; margin-bottom: 1.2rem; }
-        .apple-hero-title {
-            font-size: clamp(3.2rem, 7.5vw, 6rem) !important; font-weight: 700 !important; letter-spacing: -0.04em !important;
-            line-height: 1.05 !important; background: linear-gradient(180deg, #ffffff 0%, #a1a1a6 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1.2rem !important;
+        .badge-pill {
+            display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.9rem;
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); border-radius: 999px;
+            font-size: 0.78rem; color: var(--text-sub); margin-bottom: 1.5rem; backdrop-filter: blur(10px);
         }
-        .apple-hero-sub { max-width: 620px; font-size: clamp(1.1rem, 1.8vw, 1.35rem); color: var(--text-muted); line-height: 1.5; margin-bottom: 2.5rem; }
-        .apple-hero-ctas { display: flex; align-items: center; gap: 1.5rem; }
-        .apple-btn-primary { background: #ffffff; color: #000000; padding: 0.75rem 1.6rem; border-radius: 980px; font-size: 0.95rem; font-weight: 500; text-decoration: none; transition: all 0.25s ease; }
-        .apple-btn-primary:hover { background: #f5f5f7; transform: scale(1.02); }
-        .apple-btn-link { color: var(--accent); font-size: 0.95rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem; }
+        .status-dot { width: 7px; height: 7px; background: var(--accent-green); border-radius: 50%; box-shadow: 0 0 10px var(--accent-green); animation: pulseDot 2s infinite; }
+        @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
 
-        /* Sections & Spotlight Visual Physics */
-        .content-wrapper { position: relative; z-index: 10; padding-bottom: 6rem; }
-        
-        section, .cert-card {
+        .hero-title {
+            font-size: clamp(3.2rem, 8vw, 6.2rem); font-weight: 800; letter-spacing: -0.04em;
+            line-height: 1.02; background: linear-gradient(180deg, #ffffff 0%, #a1a1a6 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1.2rem;
+        }
+        .hero-sub { max-width: 650px; font-size: clamp(1.1rem, 1.8vw, 1.35rem); color: var(--text-secondary); line-height: 1.5; margin-bottom: 2.5rem; }
+
+        /* Bento Grid Framework */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem 6rem; }
+        .bento-grid {
+            display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.25rem; margin-bottom: 3rem;
+        }
+
+        /* Bento Cards & Dynamic Specular Cursor Spotlight */
+        .bento-card {
             background: radial-gradient(
-                550px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
                 rgba(41, 151, 255, 0.12), 
                 transparent 40%
-            ), var(--glass-bg) !important;
-            border: 1px solid var(--glass-border); border-radius: 22px;
-            backdrop-filter: blur(24px) saturate(135%); transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            ), var(--surface-card);
+            border: 1px solid var(--border-glass); border-radius: 20px;
+            padding: 2rem; position: relative; overflow: hidden;
+            backdrop-filter: blur(20px) saturate(180%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .bento-card:hover {
+            border-color: rgba(255, 255, 255, 0.22);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(41, 151, 255, 0.1);
         }
 
-        section { padding: clamp(3.5rem, 6vw, 5.5rem) clamp(1.5rem, 5vw, 5rem); max-width: 1100px; margin: 0 auto 3rem; scroll-margin-top: 5rem; }
-        section:hover { border-color: rgba(255, 255, 255, 0.25); transform: translateY(-2px); }
-        
-        .section-header { margin-bottom: 2.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 1rem; }
-        .section-header h2 { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; }
+        .col-12 { grid-column: span 12; }
+        .col-8 { grid-column: span 8; }
+        .col-4 { grid-column: span 4; }
 
-        /* Live Pulsing Status Dot */
-        .status-dot {
-            display: inline-block; width: 8px; height: 8px; background-color: #30d158;
-            border-radius: 50%; margin-right: 8px; box-shadow: 0 0 10px #30d158;
-            animation: pulseDot 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
-        }
-        @keyframes pulseDot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.35; transform: scale(0.8); }
-        }
+        .section-label { font-size: 0.75rem; font-weight: 600; color: var(--accent-blue); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.8rem; }
+        .card-title { font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+        .card-desc { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; }
 
-        .experience-item { display: grid; grid-template-columns: 1fr 2.5fr; gap: 3rem; margin-bottom: 2.5rem; }
-        .experience-item:last-child { margin-bottom: 0; }
-        .exp-meta h3 { color: #ffffff; font-size: 1.6rem; font-weight: 600; margin-bottom: 0.3rem; }
-        .exp-meta p { color: var(--text-muted); font-size: 0.95rem; }
-        .exp-details { color: var(--text-sub); font-size: 1rem; line-height: 1.65; }
-        .experience-list { padding-left: 1.2rem; margin-top: 0.5rem; }
-        .experience-list li { margin: 0.5rem 0; }
+        /* Interactive Live Console Widget */
+        .terminal-box {
+            background: rgba(5, 5, 8, 0.9); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px; padding: 1.2rem; font-family: var(--font-mono); font-size: 0.85rem;
+            color: #d1d5db; margin-top: 1.2rem; box-shadow: inset 0 2px 10px rgba(0,0,0,0.8);
+        }
+        .terminal-header { display: flex; gap: 6px; margin-bottom: 0.8rem; }
+        .term-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .term-red { background: #ff5f56; } .term-yellow { background: #ffbd2e; } .term-green { background: #27c93f; }
+        .terminal-cmd { color: var(--accent-cyan); }
+        .terminal-output { color: var(--accent-green); margin-top: 0.4rem; white-space: pre-wrap; }
 
-        /* Interactive Filterable Stack & Hover Glows */
-        .filter-container { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.8rem; }
-        .filter-btn {
-            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); color: var(--text-muted);
-            padding: 0.4rem 1rem; border-radius: 980px; font-size: 0.8rem; cursor: pointer; transition: all 0.25s ease;
+        /* Dynamic Tech Stack Pills & Filter Tabs */
+        .filter-bar { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+        .filter-tab {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border-glass); color: var(--text-secondary);
+            padding: 0.4rem 0.9rem; border-radius: 999px; font-size: 0.78rem; font-weight: 500; cursor: pointer;
+            transition: all 0.2s ease;
         }
-        .filter-btn:hover, .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-        
-        .tech-list { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
-        .tech-tag {
-            background: rgba(255,255,255,0.06); border: 1px solid rgba(255, 255, 255, 0.12); color: var(--text-main);
-            padding: 0.45rem 1.1rem; border-radius: 980px; font-size: 0.8rem; font-weight: 400;
-            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+        .filter-tab:hover, .filter-tab.active { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); }
+
+        .pills-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+        .pill-tag {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); color: var(--text-primary);
+            padding: 0.45rem 1rem; border-radius: 999px; font-size: 0.82rem;
+            transition: all 0.25s ease; cursor: default;
         }
-        .tech-tag:hover {
-            border-color: var(--accent) !important; box-shadow: 0 0 16px rgba(41, 151, 255, 0.35);
-            transform: translateY(-2px); background: rgba(41, 151, 255, 0.15) !important;
+        .pill-tag:hover {
+            border-color: var(--accent-blue); background: rgba(41, 151, 255, 0.15);
+            box-shadow: 0 0 16px rgba(41, 151, 255, 0.3); transform: translateY(-2px);
         }
 
-        .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; }
-        .cert-card {
-            padding: 1.6rem; border-radius: 16px; position: relative; overflow: hidden;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        /* Timeline Items */
+        .timeline-item { border-left: 2px solid rgba(255,255,255,0.1); padding-left: 1.5rem; margin-bottom: 2rem; position: relative; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -6px; top: 4px; width: 10px; height: 10px;
+            border-radius: 50%; background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue);
         }
-        .cert-card:hover {
-            border-color: rgba(41, 151, 255, 0.4) !important;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(41, 151, 255, 0.2);
-            transform: translateY(-3px);
+        .timeline-role { font-size: 1.15rem; font-weight: 600; color: #fff; }
+        .timeline-company { font-size: 0.9rem; color: var(--text-sub); margin-bottom: 0.5rem; }
+        .timeline-bullets { padding-left: 1rem; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
+
+        /* Skeleton Loaders for Asynchronous API state */
+        .skeleton {
+            background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+            background-size: 200% 100%; animation: skeletonLoading 1.5s infinite; border-radius: 8px;
         }
-        .cert-icon { font-size: 1.2rem; margin-bottom: 0.8rem; color: var(--accent); font-weight: 700; }
-        .cert-card h3 { color: #fff; font-size: 1.05rem; font-weight: 600; margin-bottom: 0.3rem; }
-        .cert-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1rem; line-height: 1.4; }
-        .cert-link { color: var(--accent); font-size: 0.85rem; text-decoration: none; font-weight: 500; }
-        .cert-link:hover { text-decoration: underline; }
+        @keyframes skeletonLoading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-        .contact-links { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
-        .contact-link {
-            display: inline-flex; align-items: center; gap: 0.65rem; padding: 0.7rem 1.2rem; border-radius: 999px;
-            border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.025); color: #fff; text-decoration: none;
-            transition: all 0.25s ease; min-height: 3rem;
-        }
-        .contact-link:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.28); transform: translateY(-2px); }
-        .contact-link svg { width: 1.4rem; height: 1.4rem; flex-shrink: 0; fill: currentColor; }
+        footer { text-align: center; padding: 4rem 1.5rem; color: var(--text-secondary); font-size: 0.82rem; border-top: 1px solid var(--border-glass); }
 
-        footer { border-top: 1px solid rgba(255,255,255,.08); text-align: center; padding: 4rem 1.25rem 3rem; color: var(--text-muted); font-size: 0.82rem; }
-
-        .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        @media (max-width: 768px) {
-            nav { height: 48px; padding: 0 1.2rem; }
-            .experience-item { grid-template-columns: 1fr; gap: 1rem; }
-            .nav-links { gap: 1rem; overflow-x: auto; }
-            .apple-hero-title { font-size: clamp(2.5rem, 9vw, 4rem) !important; }
+        @media (max-width: 900px) {
+            .col-8, .col-4 { grid-column: span 12; }
+            .hero-title { font-size: clamp(2.5rem, 9vw, 4rem); }
         }
     </style>
 </head>
 <body>
-    <a class="skip-link" href="#main">Skip to main content</a>
-    <div class="base-black"></div>
-    <div class="noise-overlay"></div>
-    <canvas aria-hidden="true" id="galaxy-canvas"></canvas>
+    <div class="ambient-mesh"></div>
+    <canvas id="galaxy-canvas"></canvas>
 
-    <div class="ui-layer" id="ui-layer">
-        <nav aria-label="Main Navigation">
-            <div class="nav-left">
-                <a class="logo" href="#main">Selvendiran S</a>
-                <ul class="nav-links">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#skills">Stack</a></li>
-                    <li><a href="#github">Projects</a></li>
-                    <li><a href="#certs">Certifications</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-            <div class="nav-right">
-                <a class="btn-primary" href="#contact">Resume</a>
-            </div>
+    <div class="ui-layer">
+        <!-- Floating Glass Nav -->
+        <nav>
+            <a class="logo" href="#main">Selvendiran S</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#stack">Stack</a></li>
+                <li><a href="#projects">GitHub</a></li>
+            </ul>
+            <a class="btn-nav-primary" href="https://mail.google.com/mail/?view=cm&fs=1&to=abishake06042002@gmail.com" target="_blank">Contact</a>
         </nav>
 
         <main id="main">
-            <div class="apple-hero">
-                <div class="apple-eyebrow">Selvendiran S</div>
-                <h1 class="apple-hero-title">Data Engineer.</h1>
-                <p class="apple-hero-sub">Architecting high-throughput pipelines, distributed compute engines, and modern cloud platforms.</p>
-                <div class="apple-hero-ctas">
-                    <a class="apple-btn-primary" href="#experience">Explore Work</a>
-                    <a class="apple-btn-link" href="#contact">Get in touch <span class="chevron">›</span></a>
+            <!-- Hero -->
+            <section class="hero">
+                <div class="badge-pill">
+                    <span class="status-dot"></span>
+                    <span id="live-status-clock">Connecting to Live IST Node...</span>
                 </div>
-            </div>
+                <h1 class="hero-title">Data Platform<br/>Engineer.</h1>
+                <p class="hero-sub">Engineering high-throughput ELT architectures, real-time AWS streaming pipelines, and low-latency cloud lakehouses.</p>
+            </section>
 
-            <div class="content-wrapper">
-                <section class="reveal" id="about">
-                    <div class="section-header"><h2>01 / The Vision</h2></div>
-                    <div class="experience-item">
-                        <div class="exp-meta">
-                            <h3>Data Architect Trajectory</h3>
-                            <p>Enterprise Data Systems</p>
+            <!-- Bento Grid Layout -->
+            <div class="container">
+                <div class="bento-grid">
+                    
+                    <!-- Dynamic Interactive Terminal (Col 8) -->
+                    <div class="bento-card col-8" id="about">
+                        <div class="section-label">01 / Dynamic System Terminal</div>
+                        <h2 class="card-title">Distributed Pipeline Architecture</h2>
+                        <p class="card-desc">Specializing in bridging vast, unstructured cloud datasets with optimized PySpark jobs, automated Airflow DAGs, and zero-loss Kinesis streaming engines.</p>
+                        
+                        <div class="terminal-box">
+                            <div class="terminal-header">
+                                <span class="term-dot term-red"></span>
+                                <span class="term-dot term-yellow"></span>
+                                <span class="term-dot term-green"></span>
+                            </div>
+                            <div><span class="terminal-cmd">$</span> <span id="terminal-input">exec pipeline_health_check.py --cluster aws-emr-production</span></div>
+                            <div class="terminal-output" id="terminal-logs">Initializing telemetry query...</div>
                         </div>
-                        <div class="exp-details">
-                            <p>My core focus is designing enterprise-grade, event-driven cloud platforms. I specialize in bridging the gap between raw, unstructured data lakes and clean, queryable analytical platforms.</p>
-                            <div class="tech-list" style="margin-top: 1.5rem;">
-                                <span class="tech-tag">Location: Chennai, Tamil Nadu, India</span>
-                                <span class="tech-tag">Local Time: <strong id="local-clock">--:--:--</strong></span>
+                    </div>
+
+                    <!-- Live Metrics Card (Col 4) -->
+                    <div class="bento-card col-4">
+                        <div class="section-label">System Metrics</div>
+                        <h2 class="card-title">Primary Stack</h2>
+                        <div style="margin-top: 1.2rem; display: flex; flex-direction: column; gap: 0.8rem;">
+                            <div>
+                                <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:var(--text-sub); margin-bottom:0.3rem;">
+                                    <span>AWS Cloud Data Engineering</span>
+                                    <span>98%</span>
+                                </div>
+                                <div style="height:6px; background:rgba(255,255,255,0.08); border-radius:999px; overflow:hidden;">
+                                    <div style="width:98%; height:100%; background:var(--accent-blue);"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:var(--text-sub); margin-bottom:0.3rem;">
+                                    <span>PySpark & Distributed Compute</span>
+                                    <span>92%</span>
+                                </div>
+                                <div style="height:6px; background:rgba(255,255,255,0.08); border-radius:999px; overflow:hidden;">
+                                    <div style="width:92%; height:100%; background:var(--accent-cyan);"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:var(--text-sub); margin-bottom:0.3rem;">
+                                    <span>Data Warehousing (Redshift/Athena)</span>
+                                    <span>95%</span>
+                                </div>
+                                <div style="height:6px; background:rgba(255,255,255,0.08); border-radius:999px; overflow:hidden;">
+                                    <div style="width:95%; height:100%; background:var(--accent-green);"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </section>
 
-                <section class="reveal" id="experience">
-                    <div class="section-header"><h2>02 / Experience</h2></div>
-                    <div id="dynamic-experience"></div>
-                </section>
-
-                <section class="reveal" id="skills">
-                    <div class="section-header"><h2>03 / Infrastructure Stack</h2></div>
-                    <div class="filter-container" id="skill-filters">
-                        <button class="filter-btn active" onclick="filterSkillCategory('All', this)">All</button>
-                        <button class="filter-btn" onclick="filterSkillCategory('Compute', this)">Compute</button>
-                        <button class="filter-btn" onclick="filterSkillCategory('Orchestration', this)">Orchestration</button>
-                        <button class="filter-btn" onclick="filterSkillCategory('Cloud & Storage', this)">Cloud & Storage</button>
-                        <button class="filter-btn" onclick="filterSkillCategory('Languages', this)">Languages</button>
+                    <!-- Experience Timeline (Col 12) -->
+                    <div class="bento-card col-12" id="experience">
+                        <div class="section-label">02 / Career Experience</div>
+                        <h2 class="card-title" style="margin-bottom: 2rem;">Production Engineering History</h2>
+                        <div id="dynamic-experience-target"></div>
                     </div>
-                    <div id="dynamic-skills" class="tech-list"></div>
-                </section>
 
-                <section class="reveal" id="github">
-                    <div class="section-header"><h2>Live Repositories (GitHub API)</h2></div>
-                    <div id="dynamic-github-repos" class="cert-grid">
-                        <p style="color:var(--text-muted);">Fetching live repositories from GitHub...</p>
-                    </div>
-                </section>
-
-                <section class="reveal" id="certs">
-                    <div class="section-header"><h2>04 / Certifications & Recognitions</h2></div>
-                    <div id="dynamic-certs" class="cert-grid"></div>
-                </section>
-
-                <section class="reveal" id="contact">
-                    <div class="section-header"><h2>05 / Initiate Sequence</h2></div>
-                    <div class="experience-item">
-                        <div class="exp-meta">
-                            <h3>Let's Connect</h3>
-                            <p>Open for Opportunities</p>
+                    <!-- Interactive Skill Filters (Col 12) -->
+                    <div class="bento-card col-12" id="stack">
+                        <div class="section-label">03 / Infrastructure Stack</div>
+                        <h2 class="card-title">Filterable Technology Matrix</h2>
+                        <div class="filter-bar" id="filter-tabs">
+                            <button class="filter-tab active" onclick="filterSkills('All', this)">All</button>
+                            <button class="filter-tab" onclick="filterSkills('Compute', this)">Compute & Spark</button>
+                            <button class="filter-tab" onclick="filterSkills('Cloud & Warehousing', this)">Cloud & Warehousing</button>
+                            <button class="filter-tab" onclick="filterSkills('Orchestration', this)">Orchestration & Streaming</button>
+                            <button class="filter-tab" onclick="filterSkills('Languages', this)">Languages</button>
                         </div>
-                        <div class="exp-details">
-                            <p>Whether you have a data lake architecture problem, high-latency PySpark pipelines, or cloud data warehousing requirements, my inbox is open.</p>
-                            <div class="contact-links" id="dynamic-contact-links"></div>
+                        <div class="pills-grid" id="dynamic-skills-target"></div>
+                    </div>
+
+                    <!-- Dynamic GitHub Repos (Col 12) -->
+                    <div class="bento-card col-12" id="projects">
+                        <div class="section-label">04 / Live GitHub Feed</div>
+                        <h2 class="card-title" style="margin-bottom: 1.5rem;">Asynchronous REST API Integration</h2>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem;" id="dynamic-github-target">
+                            <!-- Skeleton loaders -->
+                            <div class="skeleton" style="height: 140px;"></div>
+                            <div class="skeleton" style="height: 140px;"></div>
                         </div>
                     </div>
-                </section>
 
-                <footer>Selvendiran S © 2026. Data Engineer. Built with precision.</footer>
+                </div>
             </div>
         </main>
+
+        <footer>
+            Selvendiran S © 2026. Lead Data Engineer. Built with world-class engineering precision.
+        </footer>
     </div>
 
     <script src="app.js"></script>
