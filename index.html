@@ -5,188 +5,200 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta content="Selvendiran S - Lead Data Engineer Portfolio." name="description"/>
     <title>Selvendiran S | Data Platform Engineer</title>
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#030508">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23000'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Arial' font-size='34' font-weight='700' fill='%232997ff'%3ES%3C/text%3E%3C/svg%3E">
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
     
     <style>
         :root {
-            --bg-base: #000000;
-            --surface-card: rgba(12, 13, 18, 0.7);
+            --bg-base: #030508;
+            --surface-glass: rgba(13, 16, 23, 0.65);
+            --surface-hover: rgba(22, 27, 38, 0.85);
             --border-glass: rgba(255, 255, 255, 0.08);
-            --border-hover: rgba(41, 151, 255, 0.45);
-            --text-primary: #f5f5f7;
-            --text-secondary: #86868b;
-            --text-sub: #a1a1a6;
+            --border-accent: rgba(41, 151, 255, 0.4);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-sub: #cbd5e1;
             --accent-blue: #2997ff;
-            --accent-cyan: #64d2ff;
-            --accent-green: #30d158;
+            --accent-cyan: #38bdf8;
+            --accent-green: #34d399;
+            --accent-purple: #a855f7;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
         }
 
         * {
             margin: 0; padding: 0; box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+            font-family: var(--font-sans);
             -webkit-font-smoothing: antialiased;
         }
 
         html { scroll-behavior: smooth; min-height: 100%; }
         body {
             background-color: var(--bg-base); color: var(--text-primary);
-            overflow-x: hidden; overflow-y: scroll; letter-spacing: -0.015em;
+            overflow-x: hidden; overflow-y: scroll; letter-spacing: -0.02em;
         }
 
-        /* Ambient Lighting Canvas Overlay */
+        /* Ambient Lighting Mesh Backdrop */
         .ambient-mesh {
             position: fixed; inset: 0; z-index: -1; pointer-events: none;
             background: 
-                radial-gradient(circle at 50% 10%, rgba(41, 151, 255, 0.18), transparent 45%),
-                radial-gradient(circle at 15% 65%, rgba(100, 210, 255, 0.1), transparent 35%),
-                radial-gradient(circle at 85% 85%, rgba(48, 209, 88, 0.06), transparent 40%);
-            filter: blur(80px);
+                radial-gradient(circle at 50% 0%, rgba(41, 151, 255, 0.15), transparent 45%),
+                radial-gradient(circle at 10% 50%, rgba(56, 189, 248, 0.08), transparent 35%),
+                radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.06), transparent 40%);
+            filter: blur(90px);
         }
 
         .noise-overlay {
             position: fixed; inset: 0; width: 100vw; height: 100vh;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
-            background-size: 24px 24px; opacity: 0.4; z-index: 2; pointer-events: none; mix-blend-mode: screen;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+            background-size: 28px 24px; opacity: 0.35; z-index: 2; pointer-events: none; mix-blend-mode: screen;
         }
 
         #galaxy-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.85; }
         .ui-layer { position: relative; z-index: 10; }
 
-        /* Floating Tooltip Cursor Modal */
+        /* Floating Cursor Tooltip Modal */
         #hover-preview-modal {
             position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
             width: 320px; padding: 1.25rem; border-radius: 16px;
-            background: rgba(10, 12, 18, 0.94); border: 1px solid rgba(41, 151, 255, 0.4);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(41, 151, 255, 0.25);
+            background: rgba(10, 14, 23, 0.94); border: 1px solid var(--border-accent);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(41, 151, 255, 0.2);
             backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
             opacity: 0; transform: scale(0.92) translateY(10px);
             transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         #hover-preview-modal.visible { opacity: 1; transform: scale(1) translateY(0); }
-        .preview-tag { display: inline-block; font-size: 0.7rem; font-weight: 600; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem; }
+        .preview-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem; }
         .preview-title { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
-        .preview-body { font-size: 0.85rem; color: var(--text-sub); line-height: 1.5; }
-        .preview-footer { margin-top: 0.8rem; padding-top: 0.6rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; color: var(--accent-green); font-family: var(--font-mono); }
+        .preview-body { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
+        .preview-footer { margin-top: 0.8rem; padding-top: 0.6rem; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.75rem; color: var(--accent-green); font-family: var(--font-mono); }
 
-        /* Navigation Header & Seamless Mega-Menu Hover Bridge */
+        /* Floating Island Navigation */
+        .nav-wrapper {
+            position: fixed; top: 1.2rem; left: 50%; transform: translateX(-50%);
+            width: clamp(340px, 92vw, 1100px); z-index: 1000;
+        }
         nav {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 56px; padding: 0 clamp(1.25rem, 5vw, 5rem);
-            display: flex; justify-content: space-between; align-items: center; background: rgba(8, 8, 12, 0.88) !important;
-            border-bottom: 1px solid var(--border-glass) !important; z-index: 1000;
-            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            width: 100%; height: 54px; padding: 0 1.5rem;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(10, 14, 23, 0.75) !important; border: 1px solid var(--border-glass) !important;
+            border-radius: 999px; backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
         }
-        .nav-left { display: flex; align-items: center; gap: 2.5rem; height: 100%; }
-        .logo { font-weight: 700; font-size: 0.95rem; color: #ffffff; text-decoration: none; letter-spacing: -0.02em; }
+        .nav-left { display: flex; align-items: center; gap: 2rem; height: 100%; }
+        .logo { font-weight: 800; font-size: 0.95rem; color: #ffffff; text-decoration: none; letter-spacing: -0.02em; }
         
-        .nav-links { display: flex; gap: 1.2rem; list-style: none; height: 100%; margin: 0; padding: 0; }
-        .nav-links > li { position: static; height: 100%; display: flex; align-items: center; }
+        .nav-links { display: flex; gap: 0.5rem; list-style: none; height: 100%; margin: 0; padding: 0; }
+        .nav-links > li { position: relative; height: 100%; display: flex; align-items: center; }
         .nav-links > li > a {
-            color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; font-weight: 500;
-            height: 100%; display: flex; align-items: center; padding: 0 0.8rem; transition: color 0.2s ease;
+            color: var(--text-secondary); text-decoration: none; font-size: 0.82rem; font-weight: 500;
+            height: 100%; display: flex; align-items: center; padding: 0 0.9rem; transition: all 0.2s ease;
+            border-radius: 999px;
         }
-        .nav-links > li:hover > a, .nav-links > li.menu-open > a { color: #ffffff !important; }
+        .nav-links > li:hover > a, .nav-links > li.menu-open > a { color: #ffffff !important; background: rgba(255,255,255,0.06); }
 
-        .nav-right .btn-primary {
+        .btn-nav-primary {
             display: inline-flex; align-items: center; justify-content: center;
             min-height: 36px; padding: 0 18px; border: 1px solid rgba(255,255,255,.24); border-radius: 999px;
-            background: linear-gradient(180deg,rgba(255,255,255,.96),rgba(225,231,240,.88));
-            color: #0a0d13; font-size: .76rem; font-weight: 650; text-decoration: none; transition: all .35s ease;
+            background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(226, 232, 240, 0.9));
+            color: #030712; font-size: 0.78rem; font-weight: 700; text-decoration: none; transition: all 0.25s ease;
         }
-        .nav-right .btn-primary:hover { transform: translateY(-2px); background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+        .btn-nav-primary:hover { transform: translateY(-1px); background: #ffffff; box-shadow: 0 10px 25px rgba(255,255,255,0.25); }
 
-        /* Mega Menu Dropdowns (Seamless Hover Panel) */
+        /* Mega Menu Dropdown Panel */
         .mega-menu {
-            position: fixed; top: 56px; left: 0; width: 100vw; max-height: calc(100vh - 56px);
-            overflow-y: auto; padding: 2.5rem clamp(2rem, 6vw, 6rem) 3rem;
-            display: grid; grid-template-columns: 1fr 1fr 1fr 1.2fr; gap: clamp(2rem, 3.5vw, 4rem);
-            background: rgba(10, 10, 14, 0.97) !important; border-bottom: 1px solid var(--border-glass) !important;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-            backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%);
+            position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%) translateY(-8px);
+            width: clamp(320px, 88vw, 900px); padding: 2rem 2.5rem;
+            display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 2.5rem;
+            background: rgba(10, 14, 23, 0.95) !important; border: 1px solid var(--border-glass) !important;
+            border-radius: 24px; box-shadow: 0 30px 70px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.1);
+            backdrop-filter: blur(32px) saturate(180%); -webkit-backdrop-filter: blur(32px) saturate(180%);
             opacity: 0; visibility: hidden; pointer-events: none;
-            transform: translateY(-8px); transition: opacity .2s ease, transform .2s ease, visibility 0s linear .2s; z-index: 999;
+            transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0.22s;
+            z-index: 1001;
         }
 
-        .nav-links > li.menu-open .mega-menu,
-        .nav-links > li:hover .mega-menu {
+        .nav-links > li:hover .mega-menu, .nav-links > li.menu-open .mega-menu {
             opacity: 1 !important; visibility: visible !important; pointer-events: auto !important;
-            transform: translateY(0) !important; transition-delay: 0s !important;
+            transform: translateX(-50%) translateY(0) !important; transition-delay: 0s !important;
         }
 
-        .mega-column-title { color: var(--text-secondary); font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 1.2rem; }
-        .mega-links { display: grid; gap: 0.8rem; }
-        .mega-links a { color: #f5f5f7; text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color .2s ease, transform .2s ease; }
-        .mega-links a:hover { color: var(--accent-blue); transform: translateX(3px); }
-        .mega-cta { border-left: 1px solid rgba(255,255,255,.12); padding-left: clamp(1.5rem, 3vw, 3rem); }
-        .mega-cta h3 { color: #f5f5f7; font-size: 1.6rem; font-weight: 600; margin-bottom: 0.5rem; line-height: 1.2; }
+        .mega-column-title { color: var(--text-secondary); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+        .mega-links { display: grid; gap: 0.75rem; }
+        .mega-links a { color: var(--text-sub); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: all 0.2s ease; }
+        .mega-links a:hover { color: var(--accent-blue); transform: translateX(4px); }
+        .mega-cta { border-left: 1px solid rgba(255,255,255,0.08); padding-left: 2rem; }
+        .mega-cta h3 { color: #ffffff; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.4rem; line-height: 1.2; }
         .mega-cta p { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.5; }
-        .mega-button { display: inline-flex; align-items: center; gap: .5rem; padding: .5rem 1.1rem; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; color: #fff; text-decoration: none; font-size: .82rem; transition: all .25s ease; }
+        .mega-button { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.1rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 999px; color: #fff; text-decoration: none; font-size: 0.82rem; transition: all 0.25s ease; }
         .mega-button:hover { background: #fff; color: #000; }
 
         /* Hero */
         .apple-hero {
-            min-height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; padding: 8rem 1.5rem 4rem; position: relative; z-index: 5;
+            min-height: 88vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 9rem 1.5rem 4rem; position: relative; z-index: 5;
         }
-        .apple-eyebrow { font-size: clamp(0.85rem, 1.2vw, 1rem); font-weight: 500; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 1.2rem; }
-        .apple-hero-title {
-            font-size: clamp(3.2rem, 7.5vw, 6rem) !important; font-weight: 800 !important; letter-spacing: -0.04em !important;
-            line-height: 1.02 !important; background: linear-gradient(180deg, #ffffff 0%, #a1a1a6 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1.2rem !important;
+        .status-pill {
+            display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.4rem 1rem;
+            background: rgba(255,255,255,0.04); border: 1px solid var(--border-glass); border-radius: 999px;
+            font-size: 0.78rem; font-weight: 600; color: var(--text-sub); margin-bottom: 1.8rem;
+            backdrop-filter: blur(12px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
         }
-        .apple-hero-sub { max-width: 640px; font-size: clamp(1.1rem, 1.8vw, 1.35rem); color: var(--text-secondary); line-height: 1.5; margin-bottom: 2.5rem; }
-        .apple-hero-ctas { display: flex; align-items: center; gap: 1.5rem; }
-        .apple-btn-primary { background: #ffffff; color: #000000; padding: 0.75rem 1.6rem; border-radius: 980px; font-size: 0.95rem; font-weight: 500; text-decoration: none; transition: all 0.25s ease; }
-        .apple-btn-primary:hover { background: #f5f5f7; transform: scale(1.02); }
-        .apple-btn-link { color: var(--accent-blue); font-size: 0.95rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem; }
+        .status-dot {
+            width: 8px; height: 8px; background-color: var(--accent-green); border-radius: 50%;
+            box-shadow: 0 0 12px var(--accent-green); animation: pulseDot 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+        }
+        @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.85); } }
 
-        /* Layout & Specular Light Cards */
+        .apple-hero-title {
+            font-size: clamp(3.4rem, 8vw, 6.5rem) !important; font-weight: 800 !important; letter-spacing: -0.04em !important;
+            line-height: 1.02 !important; background: linear-gradient(180deg, #ffffff 0%, #a1a1a6 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1.4rem !important;
+        }
+        .apple-hero-sub { max-width: 650px; font-size: clamp(1.1rem, 1.8vw, 1.35rem); color: var(--text-secondary); line-height: 1.55; margin-bottom: 2.8rem; }
+        .apple-hero-ctas { display: flex; align-items: center; gap: 1.5rem; }
+        .apple-btn-primary { background: #ffffff; color: #000000; padding: 0.8rem 1.8rem; border-radius: 999px; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: all 0.25s ease; }
+        .apple-btn-primary:hover { background: #f5f5f7; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(255,255,255,0.2); }
+        .apple-btn-link { color: var(--accent-blue); font-size: 0.95rem; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem; }
+
+        /* Bento & Section Layout */
         .content-wrapper { position: relative; z-index: 10; padding-bottom: 6rem; }
         
         section, .cert-card, .terminal-box {
             background: radial-gradient(
                 600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-                rgba(41, 151, 255, 0.14), 
+                rgba(41, 151, 255, 0.12), 
                 transparent 40%
-            ), var(--surface-card) !important;
-            border: 1px solid var(--border-glass); border-radius: 22px;
-            backdrop-filter: blur(24px) saturate(135%); transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            ), var(--surface-glass) !important;
+            border: 1px solid var(--border-glass); border-radius: 24px;
+            backdrop-filter: blur(24px) saturate(140%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+            opacity: 1 !important; transform: none !important;
         }
 
-        section { padding: clamp(3.5rem, 6vw, 5.5rem) clamp(1.5rem, 5vw, 5rem); max-width: 1100px; margin: 0 auto 3rem; scroll-margin-top: 5rem; }
-        section:hover { border-color: rgba(255, 255, 255, 0.22); transform: translateY(-2px); }
+        section { padding: clamp(3.5rem, 6vw, 5.5rem) clamp(1.5rem, 5vw, 5rem); max-width: 1100px; margin: 0 auto 3rem; scroll-margin-top: 6rem; }
+        section:hover { border-color: rgba(255, 255, 255, 0.22); transform: translateY(-2px) !important; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
         
         .section-header { margin-bottom: 2.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 1rem; }
-        .section-header h2 { font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); letter-spacing: 0.15em; text-transform: uppercase; }
+        .section-header h2 { font-size: 0.78rem; font-weight: 700; color: var(--accent-blue); letter-spacing: 0.15em; text-transform: uppercase; }
 
-        .status-dot {
-            display: inline-block; width: 8px; height: 8px; background-color: var(--accent-green);
-            border-radius: 50%; margin-right: 8px; box-shadow: 0 0 10px var(--accent-green);
-            animation: pulseDot 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
-        }
-        @keyframes pulseDot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.35; transform: scale(0.8); }
-        }
-
-        /* Experience Layout */
+        /* Experience Items */
         .experience-item { display: grid; grid-template-columns: 1fr 2.5fr; gap: 3rem; margin-bottom: 2.5rem; }
         .experience-item:last-child { margin-bottom: 0; }
-        .exp-meta h3 { color: #ffffff; font-size: 1.6rem; font-weight: 600; margin-bottom: 0.3rem; }
+        .exp-meta h3 { color: #ffffff; font-size: 1.6rem; font-weight: 700; margin-bottom: 0.3rem; letter-spacing: -0.02em; }
         .exp-meta p { color: var(--text-secondary); font-size: 0.95rem; }
         .exp-details { color: var(--text-sub); font-size: 1rem; line-height: 1.65; }
         .experience-list { padding-left: 1.2rem; margin-top: 0.5rem; }
-        .experience-list li { margin: 0.5rem 0; }
+        .experience-list li { margin: 0.55rem 0; }
 
         /* Console Terminal Box */
         .terminal-box {
-            background: rgba(5, 5, 8, 0.92) !important; border: 1px solid rgba(255, 255, 255, 0.12);
-            padding: 1.2rem; border-radius: 14px; font-family: var(--font-mono); font-size: 0.85rem;
-            color: #d1d5db; margin-top: 1.5rem;
+            background: rgba(5, 7, 12, 0.92) !important; border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 1.25rem; border-radius: 16px; font-family: var(--font-mono); font-size: 0.85rem;
+            color: #e2e8f0; margin-top: 1.5rem; box-shadow: inset 0 2px 10px rgba(0,0,0,0.8);
         }
         .terminal-header { display: flex; gap: 6px; margin-bottom: 0.8rem; }
         .term-dot { width: 10px; height: 10px; border-radius: 50%; }
@@ -194,59 +206,60 @@
         .terminal-cmd { color: var(--accent-cyan); }
         .terminal-output { color: var(--accent-green); margin-top: 0.4rem; white-space: pre-wrap; line-height: 1.5; }
 
-        /* Filter Tabs & Tech Badges */
+        /* Tech Filters & Pills */
         .filter-container { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.8rem; }
         .filter-btn {
-            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); color: var(--text-secondary);
-            padding: 0.4rem 1rem; border-radius: 980px; font-size: 0.8rem; cursor: pointer; transition: all 0.25s ease;
+            background: rgba(255,255,255,0.04); border: 1px solid var(--border-glass); color: var(--text-secondary);
+            padding: 0.45rem 1.1rem; border-radius: 999px; font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all 0.25s ease;
         }
         .filter-btn:hover, .filter-btn.active { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); }
         
-        .tech-list { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
+        .tech-list { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-top: 1rem; }
         .tech-tag {
             background: rgba(255,255,255,0.06); border: 1px solid var(--border-glass); color: var(--text-primary);
-            padding: 0.45rem 1.1rem; border-radius: 980px; font-size: 0.8rem; font-weight: 400; cursor: pointer;
+            padding: 0.5rem 1.2rem; border-radius: 999px; font-size: 0.82rem; font-weight: 500; cursor: pointer;
             transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
         }
         .tech-tag:hover {
-            border-color: var(--accent-blue) !important; box-shadow: 0 0 16px rgba(41, 151, 255, 0.4);
-            transform: translateY(-2px); background: rgba(41, 151, 255, 0.2) !important;
+            border-color: var(--accent-blue) !important; box-shadow: 0 0 20px rgba(41, 151, 255, 0.35);
+            transform: translateY(-2px); background: rgba(41, 151, 255, 0.18) !important;
         }
 
         /* Grid Layouts */
-        .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; }
+        .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
         .cert-card {
-            padding: 1.6rem; border-radius: 16px; position: relative; overflow: hidden; cursor: pointer;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            padding: 1.6rem; border-radius: 18px; position: relative; overflow: hidden; cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .cert-card:hover {
-            border-color: var(--border-hover) !important;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(41, 151, 255, 0.25);
+            border-color: var(--border-accent) !important;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(41, 151, 255, 0.2);
             transform: translateY(-3px) !important;
         }
-        .cert-icon { font-size: 1.2rem; margin-bottom: 0.8rem; color: var(--accent-blue); font-weight: 700; }
-        .cert-card h3 { color: #fff; font-size: 1.05rem; font-weight: 600; margin-bottom: 0.3rem; }
-        .cert-card p { color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 1rem; line-height: 1.4; }
-        .cert-link { color: var(--accent-blue); font-size: 0.85rem; text-decoration: none; font-weight: 500; }
+        .cert-icon { font-size: 1.25rem; margin-bottom: 0.8rem; color: var(--accent-blue); font-weight: 700; }
+        .cert-card h3 { color: #fff; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .cert-card p { color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 1rem; line-height: 1.45; }
+        .cert-link { color: var(--accent-blue); font-size: 0.85rem; text-decoration: none; font-weight: 600; }
         .cert-link:hover { text-decoration: underline; }
 
         .contact-links { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
         .contact-link {
-            display: inline-flex; align-items: center; gap: 0.65rem; padding: 0.7rem 1.2rem; border-radius: 999px;
-            border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.025); color: #fff; text-decoration: none;
-            transition: all 0.25s ease; min-height: 3rem;
+            display: inline-flex; align-items: center; gap: 0.7rem; padding: 0.75rem 1.4rem; border-radius: 999px;
+            border: 1px solid var(--border-glass); background: rgba(255,255,255,0.03); color: #fff; text-decoration: none;
+            font-size: 0.92rem; font-weight: 500; transition: all 0.25s ease; min-height: 3rem;
         }
-        .contact-link:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.28); transform: translateY(-2px); }
-        .contact-link svg { width: 1.4rem; height: 1.4rem; flex-shrink: 0; fill: currentColor; }
+        .contact-link:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.28); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.4); }
+        .contact-link svg { width: 1.35rem; height: 1.35rem; flex-shrink: 0; fill: currentColor; }
 
         footer { border-top: 1px solid var(--border-glass); text-align: center; padding: 4rem 1.25rem 3rem; color: var(--text-secondary); font-size: 0.82rem; }
 
         @media (max-width: 900px) { .mega-menu { grid-template-columns: 1fr 1fr; } }
         @media (max-width: 768px) {
-            nav { height: 48px; padding: 0 1.2rem; }
-            .mega-menu { top: 48px; grid-template-columns: 1fr; }
+            .nav-wrapper { width: 96vw; }
+            nav { height: 48px; padding: 0 1rem; }
+            .mega-menu { position: fixed; top: 60px; left: 0; width: 100vw; transform: none; grid-template-columns: 1fr; border-radius: 20px; }
             .experience-item { grid-template-columns: 1fr; gap: 1rem; }
-            .nav-links { gap: 1rem; overflow-x: auto; }
+            .nav-links { gap: 0.5rem; }
             .apple-hero-title { font-size: clamp(2.5rem, 9vw, 4rem) !important; }
             #hover-preview-modal { display: none !important; }
         }
@@ -254,11 +267,10 @@
 </head>
 <body>
     <div class="ambient-mesh"></div>
-    <div class="base-black"></div>
     <div class="noise-overlay"></div>
     <canvas aria-hidden="true" id="galaxy-canvas"></canvas>
 
-    <!-- Floating Cursor Hover Preview Tooltip Card -->
+    <!-- Dynamic Hover Preview Card -->
     <div id="hover-preview-modal">
         <span class="preview-tag" id="prev-tag">INFRASTRUCTURE PREVIEW</span>
         <div class="preview-title" id="prev-title">PySpark Compute Engine</div>
@@ -267,230 +279,194 @@
     </div>
 
     <div class="ui-layer" id="ui-layer">
-        <!-- Header Nav with Seamless Mega Menu Dropdowns for ALL Items -->
-        <nav aria-label="Main Navigation">
-            <div class="nav-left">
-                <a class="logo" href="#main">Selvendiran S</a>
-                <ul class="nav-links">
-                    
-                    <!-- ABOUT MEGA MENU -->
-                    <li class="has-mega-menu">
-                        <a href="#about">About</a>
-                        <div class="mega-menu" role="menu">
-                            <div class="mega-column">
-                                <div class="mega-column-title">EXPLORE</div>
-                                <div class="mega-links">
-                                    <a href="#about">About Me</a>
-                                    <a href="#experience">Cognizant Journey</a>
-                                    <a href="#github">Live Code Repos</a>
-                                    <a href="#certs">Certifications</a>
+        <!-- Floating Glass Nav Bar with Seamless Hover Dropdowns -->
+        <div class="nav-wrapper">
+            <nav aria-label="Main Navigation">
+                <div class="nav-left">
+                    <a class="logo" href="#main">Selvendiran S</a>
+                    <ul class="nav-links">
+                        
+                        <!-- ABOUT MEGA MENU -->
+                        <li class="has-mega-menu">
+                            <a href="#about">About</a>
+                            <div class="mega-menu" role="menu">
+                                <div class="mega-column">
+                                    <div class="mega-column-title">EXPLORE</div>
+                                    <div class="mega-links">
+                                        <a href="#about">About Me</a>
+                                        <a href="#experience">Cognizant Journey</a>
+                                        <a href="#github">Live Code Repos</a>
+                                        <a href="#certs">Certifications</a>
+                                    </div>
+                                </div>
+                                <div class="mega-column">
+                                    <div class="mega-column-title">FOCUS AREAS</div>
+                                    <div class="mega-links">
+                                        <a href="#skills">Distributed Compute</a>
+                                        <a href="#skills">AWS Architecture</a>
+                                        <a href="#skills">Lakehouse Optimization</a>
+                                    </div>
+                                </div>
+                                <div class="mega-cta">
+                                    <h3>Data. Cloud. Scale.</h3>
+                                    <p>Building resilient, high-throughput pipelines and modern cloud architectures.</p>
+                                    <a class="mega-button" href="#contact">Contact Me <span>→</span></a>
                                 </div>
                             </div>
-                            <div class="mega-column">
-                                <div class="mega-column-title">FOCUS AREAS</div>
-                                <div class="mega-links">
-                                    <a href="#skills">Distributed Compute</a>
-                                    <a href="#skills">AWS Architecture</a>
-                                    <a href="#skills">Lakehouse Optimization</a>
-                                </div>
-                            </div>
-                            <div class="mega-column">
-                                <div class="mega-column-title">QUICK LINKS</div>
-                                <div class="mega-links">
-                                    <a href="#experience">→ View Experience</a>
-                                    <a href="#skills">→ Inspect Stack</a>
-                                    <a href="#contact">→ Get in Touch</a>
-                                </div>
-                            </div>
-                            <div class="mega-cta">
-                                <h3>Data. Cloud. Scale.</h3>
-                                <p>Building resilient, high-throughput pipelines and modern cloud architectures.</p>
-                                <a class="mega-button" href="#contact">Contact Me <span>→</span></a>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
 
-                    <!-- EXPERIENCE MEGA MENU -->
-                    <li class="has-mega-menu">
-                        <a href="#experience">Experience</a>
-                        <div class="mega-menu" role="menu">
-                            <div class="mega-column">
-                                <div class="mega-column-title">ROLES</div>
-                                <div class="mega-links">
-                                    <a href="#experience">Cognizant - Data Engineer</a>
-                                    <a href="#experience">Program Analyst Trainee</a>
-                                    <a href="#experience">Accounts Receivable</a>
+                        <!-- EXPERIENCE MEGA MENU -->
+                        <li class="has-mega-menu">
+                            <a href="#experience">Experience</a>
+                            <div class="mega-menu" role="menu">
+                                <div class="mega-column">
+                                    <div class="mega-column-title">ROLES</div>
+                                    <div class="mega-links">
+                                        <a href="#experience">Cognizant - Data Engineer</a>
+                                        <a href="#experience">Program Analyst Trainee</a>
+                                        <a href="#experience">Accounts Receivable</a>
+                                    </div>
+                                </div>
+                                <div class="mega-column">
+                                    <div class="mega-column-title">CORE TOOLS</div>
+                                    <div class="mega-links">
+                                        <a href="#skills">AWS Glue & S3</a>
+                                        <a href="#skills">PySpark & SQL</a>
+                                        <a href="#skills">Redshift & Athena</a>
+                                    </div>
+                                </div>
+                                <div class="mega-cta">
+                                    <h3>Production Systems</h3>
+                                    <p>Delivering resilient pipelines with automated monitoring and low latency.</p>
+                                    <a class="mega-button" href="#experience">View Timeline <span>→</span></a>
                                 </div>
                             </div>
-                            <div class="mega-column">
-                                <div class="mega-column-title">CORE TOOLS</div>
-                                <div class="mega-links">
-                                    <a href="#skills">AWS Glue & S3</a>
-                                    <a href="#skills">PySpark & SQL</a>
-                                    <a href="#skills">Redshift & Athena</a>
-                                </div>
-                            </div>
-                            <div class="mega-column">
-                                <div class="mega-column-title">METRICS</div>
-                                <div class="mega-links">
-                                    <a href="#experience">Terabyte Datasets</a>
-                                    <a href="#experience">Zero Data Loss</a>
-                                </div>
-                            </div>
-                            <div class="mega-cta">
-                                <h3>Production Systems</h3>
-                                <p>Delivering resilient pipelines with automated monitoring and low latency.</p>
-                                <a class="mega-button" href="#experience">View Timeline <span>→</span></a>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
 
-                    <!-- STACK MEGA MENU -->
-                    <li class="has-mega-menu">
-                        <a href="#skills">Stack</a>
-                        <div class="mega-menu" role="menu">
-                            <div class="mega-column">
-                                <div class="mega-column-title">CATEGORIES</div>
-                                <div class="mega-links">
-                                    <a href="#skills">Processing Engines</a>
-                                    <a href="#skills">Orchestration & Streaming</a>
-                                    <a href="#skills">Cloud Warehouses</a>
+                        <!-- STACK MEGA MENU -->
+                        <li class="has-mega-menu">
+                            <a href="#skills">Stack</a>
+                            <div class="mega-menu" role="menu">
+                                <div class="mega-column">
+                                    <div class="mega-column-title">CATEGORIES</div>
+                                    <div class="mega-links">
+                                        <a href="#skills">Processing Engines</a>
+                                        <a href="#skills">Orchestration & Streaming</a>
+                                        <a href="#skills">Cloud Warehouses</a>
+                                    </div>
+                                </div>
+                                <div class="mega-column">
+                                    <div class="mega-column-title">FEATURED TECH</div>
+                                    <div class="mega-links">
+                                        <a href="#skills">Apache Spark & PySpark</a>
+                                        <a href="#skills">Apache Airflow DAGs</a>
+                                        <a href="#skills">AWS Redshift & Athena</a>
+                                    </div>
+                                </div>
+                                <div class="mega-cta">
+                                    <h3>Modern Data Engine</h3>
+                                    <p>A reliable set of framework tools built for enterprise processing.</p>
+                                    <a class="mega-button" href="#skills">Inspect Stack <span>→</span></a>
                                 </div>
                             </div>
-                            <div class="mega-column">
-                                <div class="mega-column-title">FEATURED TECH</div>
-                                <div class="mega-links">
-                                    <a href="#skills">Apache Spark & PySpark</a>
-                                    <a href="#skills">Apache Airflow DAGs</a>
-                                    <a href="#skills">AWS Redshift & Athena</a>
-                                </div>
-                            </div>
-                            <div class="mega-column">
-                                <div class="mega-column-title">QUICK LINKS</div>
-                                <div class="mega-links">
-                                    <a href="#skills">→ Compute Matrix</a>
-                                    <a href="#skills">→ Cloud Services</a>
-                                </div>
-                            </div>
-                            <div class="mega-cta">
-                                <h3>Modern Data Engine</h3>
-                                <p>A reliable set of framework tools built for enterprise processing.</p>
-                                <a class="mega-button" href="#skills">Inspect Stack <span>→</span></a>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
 
-                    <!-- PROJECTS MEGA MENU -->
-                    <li class="has-mega-menu">
-                        <a href="#github">Projects</a>
-                        <div class="mega-menu" role="menu">
-                            <div class="mega-column">
-                                <div class="mega-column-title">FEATURED REPOS</div>
-                                <div class="mega-links">
-                                    <a href="#github">Enterprise Data Pipeline</a>
-                                    <a href="#github">Cloud Analytics Warehouse</a>
+                        <!-- PROJECTS MEGA MENU -->
+                        <li class="has-mega-menu">
+                            <a href="#github">Projects</a>
+                            <div class="mega-menu" role="menu">
+                                <div class="mega-column">
+                                    <div class="mega-column-title">FEATURED REPOS</div>
+                                    <div class="mega-links">
+                                        <a href="#github">Enterprise Data Pipeline</a>
+                                        <a href="#github">Cloud Analytics Warehouse</a>
+                                    </div>
+                                </div>
+                                <div class="mega-column">
+                                    <div class="mega-column-title">LIVE API DATA</div>
+                                    <div class="mega-links">
+                                        <a href="#github">GitHub REST Fetcher</a>
+                                        <a href="#github">Real-time Star Counts</a>
+                                    </div>
+                                </div>
+                                <div class="mega-cta">
+                                    <h3>Open Source</h3>
+                                    <p>Production PySpark, SQL, and cloud repositories on GitHub.</p>
+                                    <a class="mega-button" href="#github">View Repositories <span>→</span></a>
                                 </div>
                             </div>
-                            <div class="mega-column">
-                                <div class="mega-column-title">LIVE API DATA</div>
-                                <div class="mega-links">
-                                    <a href="#github">GitHub REST Fetcher</a>
-                                    <a href="#github">Real-time Star Counts</a>
-                                </div>
-                            </div>
-                            <div class="mega-column">
-                                <div class="mega-column-title">SOURCE CODE</div>
-                                <div class="mega-links">
-                                    <a href="https://github.com/selva0604200" target="_blank">→ Open GitHub Profile</a>
-                                </div>
-                            </div>
-                            <div class="mega-cta">
-                                <h3>Open Source Engineering</h3>
-                                <p>Production PySpark, SQL, and cloud automation repositories on GitHub.</p>
-                                <a class="mega-button" href="#github">View Repositories <span>→</span></a>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
 
-                    <!-- CERTIFICATIONS MEGA MENU -->
-                    <li class="has-mega-menu">
-                        <a href="#certs">Certifications</a>
-                        <div class="mega-menu" role="menu">
-                            <div class="mega-column">
-                                <div class="mega-column-title">CREDENTIALS</div>
-                                <div class="mega-links">
-                                    <a href="#certs">Claude Partner Badge</a>
-                                    <a href="#certs">AI Fluency Foundations</a>
-                                    <a href="#certs">Context Engineering</a>
+                        <!-- CERTIFICATIONS MEGA MENU -->
+                        <li class="has-mega-menu">
+                            <a href="#certs">Certifications</a>
+                            <div class="mega-menu" role="menu">
+                                <div class="mega-column">
+                                    <div class="mega-column-title">CREDENTIALS</div>
+                                    <div class="mega-links">
+                                        <a href="#certs">Claude Partner Badge</a>
+                                        <a href="#certs">AI Fluency Foundations</a>
+                                        <a href="#certs">Context Engineering</a>
+                                    </div>
+                                </div>
+                                <div class="mega-column">
+                                    <div class="mega-column-title">ISSUERS</div>
+                                    <div class="mega-links">
+                                        <a href="#certs">Anthropic AI</a>
+                                        <a href="#certs">Cognizant Technology</a>
+                                    </div>
+                                </div>
+                                <div class="mega-cta">
+                                    <h3>Continuous Learning</h3>
+                                    <p>Deepening engineering practices through specialized AI and cloud certs.</p>
+                                    <a class="mega-button" href="#certs">Explore Credentials <span>→</span></a>
                                 </div>
                             </div>
-                            <div class="mega-column">
-                                <div class="mega-column-title">ISSUERS</div>
-                                <div class="mega-links">
-                                    <a href="#certs">Anthropic AI</a>
-                                    <a href="#certs">Cognizant Technology</a>
-                                </div>
-                            </div>
-                            <div class="mega-column">
-                                <div class="mega-column-title">VERIFICATION</div>
-                                <div class="mega-links">
-                                    <a href="#certs">→ Credly Badges</a>
-                                </div>
-                            </div>
-                            <div class="mega-cta">
-                                <h3>Continuous Learning</h3>
-                                <p>Deepening engineering practices through specialized AI and cloud certifications.</p>
-                                <a class="mega-button" href="#certs">Explore Credentials <span>→</span></a>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
 
-                    <!-- CONTACT MEGA MENU -->
-                    <li class="has-mega-menu">
-                        <a href="#contact">Contact</a>
-                        <div class="mega-menu" role="menu">
-                            <div class="mega-column">
-                                <div class="mega-column-title">CONNECT DIRECT</div>
-                                <div class="mega-links">
-                                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=abishake06042002@gmail.com" target="_blank">Gmail Direct</a>
-                                    <a href="https://www.linkedin.com/in/selvendiran-s-6a91351a8/" target="_blank">LinkedIn Profile</a>
-                                    <a href="https://github.com/selva0604200" target="_blank">GitHub Repositories</a>
+                        <!-- CONTACT MEGA MENU -->
+                        <li class="has-mega-menu">
+                            <a href="#contact">Contact</a>
+                            <div class="mega-menu" role="menu">
+                                <div class="mega-column">
+                                    <div class="mega-column-title">CONNECT DIRECT</div>
+                                    <div class="mega-links">
+                                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=abishake06042002@gmail.com" target="_blank">Gmail Direct</a>
+                                        <a href="https://www.linkedin.com/in/selvendiran-s-6a91351a8/" target="_blank">LinkedIn Profile</a>
+                                        <a href="https://github.com/selva0604200" target="_blank">GitHub Repositories</a>
+                                    </div>
+                                </div>
+                                <div class="mega-column">
+                                    <div class="mega-column-title">LOCATION</div>
+                                    <div class="mega-links">
+                                        <a href="#contact">Chennai, Tamil Nadu, India</a>
+                                    </div>
+                                </div>
+                                <div class="mega-cta">
+                                    <h3>Let's Build Together</h3>
+                                    <p>Architecting scalable cloud platforms. Have an opportunity? Let's connect.</p>
+                                    <a class="mega-button" href="https://mail.google.com/mail/?view=cm&fs=1&to=abishake06042002@gmail.com" target="_blank">Say Hello <span>→</span></a>
                                 </div>
                             </div>
-                            <div class="mega-column">
-                                <div class="mega-column-title">AVAILABILITY</div>
-                                <div class="mega-links">
-                                    <a href="#contact">Data Engineer Roles</a>
-                                    <a href="#contact">Hybrid / Remote Roles</a>
-                                </div>
-                            </div>
-                            <div class="mega-column">
-                                <div class="mega-column-title">LOCATION</div>
-                                <div class="mega-links">
-                                    <a href="#contact">Chennai, Tamil Nadu, India</a>
-                                </div>
-                            </div>
-                            <div class="mega-cta">
-                                <h3>Let's Build Together</h3>
-                                <p>Architecting scalable cloud data platforms. Have an opportunity? Let's connect.</p>
-                                <a class="mega-button" href="https://mail.google.com/mail/?view=cm&fs=1&to=abishake06042002@gmail.com" target="_blank">Say Hello <span>→</span></a>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
 
-                </ul>
-            </div>
-            <div class="nav-right">
-                <a class="btn-primary" href="#contact">Resume</a>
-            </div>
-        </nav>
+                    </ul>
+                </div>
+                <div class="nav-right">
+                    <a class="btn-nav-primary" href="https://mail.google.com/mail/?view=cm&fs=1&to=abishake06042002@gmail.com" target="_blank">Contact</a>
+                </div>
+            </nav>
+        </div>
 
         <main id="main">
             <!-- Hero -->
             <div class="apple-hero">
-                <div class="apple-eyebrow">Selvendiran S</div>
-                <h1 class="apple-hero-title">Data Engineer.</h1>
-                <p class="apple-hero-sub">Architecting high-throughput pipelines, distributed compute engines, and modern cloud platforms.</p>
+                <div class="status-pill">
+                    <span class="status-dot"></span>
+                    <span id="live-status-clock">CHENNAI IST NODE • CONNECTING...</span>
+                </div>
+                <h1 class="apple-hero-title">Data Platform<br/>Engineer.</h1>
+                <p class="apple-hero-sub">Architecting high-throughput pipelines, distributed compute engines, and modern cloud lakehouses.</p>
                 <div class="apple-hero-ctas">
                     <a class="apple-btn-primary" href="#experience">Explore Work</a>
                     <a class="apple-btn-link" href="#contact">Get in touch <span class="chevron">›</span></a>
@@ -837,11 +813,12 @@
 
     function initClock() {
         const clockEl = document.getElementById("local-clock");
-        if (!clockEl) return;
+        const statusClock = document.getElementById("live-status-clock");
         const update = () => {
             const options = { timeZone: "Asia/Kolkata", hour: '2-digit', minute: '2-digit', second: '2-digit' };
             const timeString = new Date().toLocaleTimeString("en-US", options);
-            clockEl.innerHTML = `<span class="status-dot"></span>${timeString} IST`;
+            if (clockEl) clockEl.innerHTML = `<span class="status-dot"></span>${timeString} IST`;
+            if (statusClock) statusClock.innerHTML = `CHENNAI IST NODE • ${timeString}`;
         };
         update();
         setInterval(update, 1000);
