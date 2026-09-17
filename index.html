@@ -43,6 +43,7 @@
         }
         .skip-link:focus { top: 1rem; }
 
+        /* Background Canvas & Noise */
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
@@ -56,6 +57,7 @@
         }
         .ui-layer { position: relative; z-index: 10; }
 
+        /* Navigation */
         nav {
             position: fixed; top: 0; width: 100%; height: 52px; padding: 0 clamp(1.25rem, 5vw, 5rem);
             display: flex; justify-content: space-between; align-items: center; background: transparent !important;
@@ -75,6 +77,7 @@
         }
         .nav-right .btn-primary:hover { transform: translateY(-2px); background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
 
+        /* Hero */
         .apple-hero {
             min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; padding: 8rem 1.5rem 4rem; position: relative; z-index: 5;
@@ -91,15 +94,35 @@
         .apple-btn-primary:hover { background: #f5f5f7; transform: scale(1.02); }
         .apple-btn-link { color: var(--accent); font-size: 0.95rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem; }
 
+        /* Sections & Spotlight Visual Physics */
         .content-wrapper { position: relative; z-index: 10; padding-bottom: 6rem; }
-        section {
-            padding: clamp(3.5rem, 6vw, 5.5rem) clamp(1.5rem, 5vw, 5rem); max-width: 1100px; margin: 0 auto 3rem;
-            background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 22px;
-            backdrop-filter: blur(24px) saturate(135%); scroll-margin-top: 5rem; transition: transform 0.4s ease, border-color 0.4s ease;
+        
+        section, .cert-card {
+            background: radial-gradient(
+                550px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                rgba(41, 151, 255, 0.12), 
+                transparent 40%
+            ), var(--glass-bg) !important;
+            border: 1px solid var(--glass-border); border-radius: 22px;
+            backdrop-filter: blur(24px) saturate(135%); transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
+
+        section { padding: clamp(3.5rem, 6vw, 5.5rem) clamp(1.5rem, 5vw, 5rem); max-width: 1100px; margin: 0 auto 3rem; scroll-margin-top: 5rem; }
         section:hover { border-color: rgba(255, 255, 255, 0.25); transform: translateY(-2px); }
+        
         .section-header { margin-bottom: 2.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 1rem; }
         .section-header h2 { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; }
+
+        /* Live Pulsing Status Dot */
+        .status-dot {
+            display: inline-block; width: 8px; height: 8px; background-color: #30d158;
+            border-radius: 50%; margin-right: 8px; box-shadow: 0 0 10px #30d158;
+            animation: pulseDot 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+        }
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.35; transform: scale(0.8); }
+        }
 
         .experience-item { display: grid; grid-template-columns: 1fr 2.5fr; gap: 3rem; margin-bottom: 2.5rem; }
         .experience-item:last-child { margin-bottom: 0; }
@@ -109,6 +132,7 @@
         .experience-list { padding-left: 1.2rem; margin-top: 0.5rem; }
         .experience-list li { margin: 0.5rem 0; }
 
+        /* Interactive Filterable Stack & Hover Glows */
         .filter-container { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.8rem; }
         .filter-btn {
             background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); color: var(--text-muted);
@@ -119,15 +143,24 @@
         .tech-list { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
         .tech-tag {
             background: rgba(255,255,255,0.06); border: 1px solid rgba(255, 255, 255, 0.12); color: var(--text-main);
-            padding: 0.45rem 1.1rem; border-radius: 980px; font-size: 0.8rem; font-weight: 400; transition: all 0.25s ease;
+            padding: 0.45rem 1.1rem; border-radius: 980px; font-size: 0.8rem; font-weight: 400;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+        }
+        .tech-tag:hover {
+            border-color: var(--accent) !important; box-shadow: 0 0 16px rgba(41, 151, 255, 0.35);
+            transform: translateY(-2px); background: rgba(41, 151, 255, 0.15) !important;
         }
 
         .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; }
         .cert-card {
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 1.6rem;
-            border-radius: 16px; transition: all 0.3s ease; position: relative;
+            padding: 1.6rem; border-radius: 16px; position: relative; overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .cert-card:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.06); }
+        .cert-card:hover {
+            border-color: rgba(41, 151, 255, 0.4) !important;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(41, 151, 255, 0.2);
+            transform: translateY(-3px);
+        }
         .cert-icon { font-size: 1.2rem; margin-bottom: 0.8rem; color: var(--accent); font-weight: 700; }
         .cert-card h3 { color: #fff; font-size: 1.05rem; font-weight: 600; margin-bottom: 0.3rem; }
         .cert-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1rem; line-height: 1.4; }
